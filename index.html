@@ -7,9 +7,43 @@
         <title>Document</title>
     </head>
     <body>
-        <div id="navbar"></div>
+        <nav id="navbar"></nav>
+        <ul id="pattern_category_labels" class="horizontal_list">
+            <li><a href="#popular_patterns">Beginner Patterns</a></li>
+            <li><a href="#amigurumi">Amigurumi</a></li>
+            <li><a href="">Tote Bags</a></li>
+            <li><a href="">Clothes</a></li>
+        </ul>
 
-        <p>Hi there</p>
+        <main class="pattern_groups">
+            <a href="/pattern_overview.html">pattern overview</a>
+            <section>
+                <h2 id="popular_patterns">Popular Patterns</h2>
+
+                <div class="pattern_card_parent">
+                    <div class="pattern_card">
+                        <img src="/images/pattern_img.png" alt="">
+                        <div class="pattern_card_text">
+                            <span class="card_title">title</span>
+                            <span class="card_description">lorem ipsum dolor est</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section>
+                <h2 id="amigurumi">Amigurumi</h2>
+                <div class="pattern_card_parent">
+                    <div class="pattern_card">
+                        <img src="/images/pattern_img.png" alt="">
+                        <div class="pattern_card_text">
+                            <span class="card_title">title</span>
+                            <span class="card_description">lorem ipsum dolor est</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
 
         <script src="./js/components.js"></script>
         <script>
