@@ -453,6 +453,12 @@ button#crochet_mode_button {
     text-wrap: wrap;
 }
 
+/* Make the button have no margin
+** this is handled by gap of the parent */
+.highlight_controls p {
+    margin-block: 0;
+}
+
 /* The highlight buttons have a fixed
 ** width x height aiding in positioning
 ** them correctly */
@@ -465,4 +471,73 @@ button#crochet_mode_button {
 ** contorl buttons larger */
 .highlight_button span {
     font-size: var(--font-large);
+}
+
+/* Substeps is the parent for all substeps */
+.substeps {
+    margin-block-start: 2rem;
+    display: flex;
+    flex-direction: row;
+}
+
+.substep {
+    flex: 4;
+}
+
+/* The title of each substep is medium size
+** font */
+.substep_title {
+    font-size: var(--font-medium);
+}
+
+/* Introduce a little padding to
+** separate the rounds from the title.
+** make the spans not inline. */
+.substep_rounds {
+    padding-block: 10px;
+}
+
+/* Each round is a set of stitches made.
+** these will have a highlight attached to them
+** remove highlight to appear as one p */
+.round {
+    /* display: block; */
+    margin: 0;
+}
+
+/* Apply a "highlight" to the text of the
+** round which has been completed. */
+.round_complete {
+    position: relative;
+    display: block;
+    width: fit-content;
+
+    background-color: var(--primary-color) !important;
+    padding: 3px 4px;
+    border-radius: 3px;
+}
+
+/* Images for the substep are
+** right aligned. max of 2.
+** width should be no more than 60%
+** images will have a height of 200px
+** and maintain apsect ratio. */
+.substep_images {
+    flex: 8;
+    overflow: hidden;
+    display: flex;
+    flex-direction: row;
+    justify-content: flex-end;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.substep_images img {
+    object-fit: cover;
+    object-position: center;
+
+    height: 200px;
+    /* aspect-ratio: 3 / 2; */
+    border-radius: var(--corner-rounding);
+
 }
