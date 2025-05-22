@@ -11,46 +11,27 @@
     </head>
     <body>
         <nav id="navbar"></nav>
-        <ul id="pattern_category_labels" class="horizontal_list secondary_nav">
-            <li><a href="#popular_patterns">Beginner Patterns</a></li>
-            <li><a href="#amigurumi">Amigurumi</a></li>
-            <li><a href="">Tote Bags</a></li>
-            <li><a href="">Clothes</a></li>
-        </ul>
-
+        <button
+            id="pattern_overview_back"
+            class="button_look button_grey"
+            onclick="history.back()"
+        >
+            <span class="button_text_icon">&#8592;&nbsp;</span>Back
+        </button>
         <main id="pattern_overview">
             <section>
                 <section>
-                    <h1>I am the Title</h1>
+                    <h1 id="pattern_overview_title">Pattern Title</h1>
                     <button class="button_look " id="crochet_mode_button">Begin Crochet Mode</button>
                 </section>
                 <section>
                     <h2>Yarn</h2>
-                    <p>List of the yarn required</p>
+                    <div id="pattern_yarn">...</div>
                 </section>
                 <section>
                     <h2>Details</h2>
-                    <table>
-                        <tr>
-                            <td>Hook Sizes:</td>
-                            <td>b</td>
-                        </tr>
-                        <tr>
-                            <td>Tools:</td>
-                            <td>d</td>
-                        </tr>
-                        <tr>
-                            <td>Abbreviations</td>
-                            <td>f</td>
-                        </tr>
-                        <tr>
-                            <td>Materials</td>
-                            <td>h</td>
-                        </tr>
-                        <tr>
-                            <td>Complexity</td>
-                            <td>h</td>
-                        </tr>
+                    <table id="pattern_details">
+
                     </table>
                 </section>
                 <section>

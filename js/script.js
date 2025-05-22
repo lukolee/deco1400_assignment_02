@@ -37,11 +37,13 @@ function handlePatternUsage() {
 
     if (window.location.pathname.endsWith('index.html')) {
         populateSections();
-
     }
 
     if (window.location.pathname.endsWith('pattern_overview.html')) {
-
+        let patternKey = new URLSearchParams(document.location.search).get("pattern");
+        patternGalleryThumbStitching();
+        enterCrochetMode(patternKey);
+        populateOverviewData(patternKey);
     }
 }
 
@@ -62,7 +64,7 @@ async function loadPatterns() {
         const result = await fetch('/patterns.json');
         const patternJSON = await result.json();
 
-        patternDataList = Object.entries(patternJSON);
+        patternDataList = patternJSON;
         // pattern data is loaded, use it
         handlePatternUsage();
     } catch (error) {
@@ -75,10 +77,12 @@ async function loadPatterns() {
 * Organise pattern categories across all patterns.
 * Adds each unique category from each pattern to a global map,
 * and each pattern matching each category is added to that map key.
+* MDN helped greatly in iterating over the JSON by using entries
+* https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
 */
 function patternCategories() {
     allPatternCategories["Popular Patterns"] = [];
-    patternDataList.forEach(entry => {
+    Object.entries(patternDataList).forEach(entry => {
         // add the object key into the object as a datafield
         // used for e.g., page nav
         const entry_key = entry[0];
@@ -102,7 +106,11 @@ function patternCategories() {
 //
 // ============================================================================
 
-
+/**
+* Populate each section's pattern_card_parent with the cards.
+* Data for the carsd is pulled from allPatternCategories,
+* and relevant HTML elements are created and appended.
+*/
 function populateSections() {
     const container = document.getElementById('pattern_groups');
 
@@ -156,21 +164,28 @@ function sectionAddCards(parent, category_patterns) {
 
         card_text.append(title, blurb);
         card.append(pattern_image, card_text);
+        // anon else it runs instantly
+        card.onclick = () => { navigateToPattern(pattern['key']) }
 
         parent.appendChild(card);
     })
 }
 
-
+function navigateToPattern(location) {
+    window.location.href = `pattern_overview.html?pattern=${location}`;
+}
 
 // ============================================================================
 //
 // Pattern Overview Page
 //
 // ============================================================================
-if (window.location.pathname.endsWith('pattern_overview.html')) {
-    // Pattern Overview Image Gallery.
-    // Replace gallery hero image with thumb image when it has been clicked.
+/**
+* Append a click event listener to each thumbnail in the image gallery.
+* Upon click the source and alt attribute of the hero image (big one)
+* is updated to that thumbnail's source and alt.
+*/
+function patternGalleryThumbStitching() {
     const hero = document.querySelector('.gallery_hero');
     const thumbs = document.querySelectorAll('.thumb'); // list of thumbs
     // For each thumb, add event listener.
@@ -181,20 +196,92 @@ if (window.location.pathname.endsWith('pattern_overview.html')) {
             hero.alt = thumb.alt;
         });
     });
-
-    // Clicking the crochet mode button takes you to the crochet mode Page
-    // and passes some url search parameters to the page knows which pattern to show
-    document.getElementById("crochet_mode_button").addEventListener("click", () => {
-        const pattern = "jacaranda-pattern"
-        const params = new URLSearchParams({ pattern });
-        window.location.href = `crochet_mode.html?${params.toString()}`;
-    });
-
-    let pattern = new URLSearchParams(document.location.search).get("pattern");
 }
 
+/**
+* Add an event listener to the crochet mode button.
+* Upon being clicked, navigate to destination,
+* which is the pattern key, so the crochet mode knows which instructions
+* to show.
+*/
+function enterCrochetMode(destination) {
+    document.getElementById("crochet_mode_button").addEventListener("click", () => {
+        window.location.href = `crochet_mode.html?pattern=${destination}`;
+    });
+}
 
+/**
+* Populate the overview page with data extracted from the datalist with
+* the patternKey key.
+*/
+function populateOverviewData(patternKey) {
+    const patternData = patternDataList[patternKey];
+    console.log(patternData);
 
+    const title = document.getElementById('pattern_overview_title');
+    title.textContent = patternData["name"];
+
+    populateYarnSection(patternData["yarn"]);
+    populatePatternDetails(patternData["pattern_details"])
+}
+
+/**
+* Iterate over all yarn objects required for a pattern,
+* and convert to plain language paragraph of the yarn needed.
+* @param {*} yarnList The full list of yarn required for the pattern.
+*/
+function populateYarnSection(yarnList) {
+    const yarn_parent = document.getElementById("pattern_yarn");
+    yarn_parent.textContent = "You will need: "
+
+    // thankfully forEach lets us see the array being iterated over and then
+    // current index,
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+    // if many elements, if the only element, or if the last element.
+    yarnList.forEach((yarnEntry, index, array) => {
+        if (!(index === array.length - 1)) {
+            yarn_parent.textContent += ` ${yarnEntry["quantity_skeins"]} skeins of ${yarnEntry["name"]}, `;
+        } else if (array.length === 1) {
+            yarn_parent.textContent += ` ${yarnEntry["quantity_skeins"]} skeins of ${yarnEntry["name"]}.`;
+        } else {
+            yarn_parent.textContent += ` and ${yarnEntry["quantity_skeins"]} skeins of ${yarnEntry["name"]}.`;
+        }
+
+    })
+}
+
+/**
+* Populates the details section of each pattern.
+* Extract entries from an onject, with titles, and children.
+* Then populates rows of a table with the details.
+* @param {*} pattern_details  The list of objects specifying the details.
+*/
+function populatePatternDetails(pattern_details) {
+    console.log(pattern_details)
+
+    // <tr>
+    //     <td>Complexity</td>
+    //     <td>h</td>
+    // </tr>
+    //
+    const details_parent = document.getElementById("pattern_details");
+
+    Object.entries(pattern_details).forEach(([key, entry]) => {
+        console.log(entry)
+        const row = document.createElement('tr');
+
+        const row_title = document.createElement("td");
+        row_title.textContent = key;
+
+        const row_data = document.createElement("tr");
+        row_data.textContent = entry;
+        // might have to prettify list -> string
+
+        row.append(row_title, row_data);
+        details_parent.appendChild(row);
+    })
+
+}
 
 // ============================================================================
 //

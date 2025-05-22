@@ -230,6 +230,11 @@ table tr td {
     transition: 75ms ease-in-out;
 }
 
+/* grey button are secondary, so have a light colour */
+.button_grey {
+    background: var(--light-grey);
+}
+
 /* text within buttons is always black */
 .button_look>span {
     color: black;
@@ -366,7 +371,12 @@ ul#pattern_category_labels {
     padding-top: 2px;
 }
 
-/* Pattern Overview page */
+
+
+/* ===============================
+** Pattern Overview Page
+** =============================== */
+
 /* main section, has two child columns. */
 #pattern_overview {
     display: flex;
@@ -432,6 +442,17 @@ button#crochet_mode_button {
     box-shadow: 0 0 5px var(--light-grey);
 }
 
+#pattern_overview_back {
+    position: absolute;
+    display: block;
+    top: calc(100px + 2rem);
+    left: 145px;
+}
+
+/* Capitalise the first column of the details table */
+#pattern_details>tr:first-child {
+    text-transform: capitalize;
+}
 
 /* ===============================
 ** Crochet Mode Page

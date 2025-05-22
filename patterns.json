@@ -22,7 +22,7 @@
             }
         ],
         "pattern_details": {
-            "hook_sizes": [
+            "needles": [
                 "4.0 mm (G-6)",
                 "2.5 mm (G-8)"
             ],
@@ -38,6 +38,18 @@
             ],
             "complexity": "Medium"
         },
+        "yarn": [
+            {
+                "name": "Yellow panda yarn",
+                "material": "cotton",
+                "quantity_skeins": 1
+            },
+            {
+                "name": "Green Ninja Yarn",
+                "material": "cotton",
+                "quantity_skeins": 2
+            }
+        ],
         "steps": [
             {
                 "title": "Create the Blossom",
