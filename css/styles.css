@@ -82,7 +82,7 @@ ul#navlist {
     height: 20px;
     font-size: var(--font-regular);
     padding: 10px 8px;
-    border-radius: 5px;
+    border-radius: var(--corner-rounding);
     border: 2pt solid var(--light-grey);
 }
 
@@ -92,12 +92,25 @@ ul#navlist {
 }
 
 /* shared page styles */
+/* so that pages have that padding either side */
 main {
-    padding: 0 250px;
+    padding-inline: 250px;
 }
 
+/* make titles a little bigger, top margin related to root element */
 h1 {
+    margin-block-start: 2rem;
     font-size: 22pt;
+}
+
+/* tables should take all horizontal width */
+table {
+    width: 100%;
+}
+
+/* 2 column table each is 50% wide. */
+table tr td {
+    width: 50%;
 }
 
 /* Links to other pages that look like a button */
@@ -175,7 +188,7 @@ ul#pattern_category_labels {
     height: 350px;
     border: 1pt solid var(--secondary-color);
     overflow: hidden;
-    border-radius: 8px;
+    border-radius: var(--corner-rounding);
     background: var(--secondary-color-light);
 
     transition: 50ms ease-in-out;
@@ -217,5 +230,40 @@ ul#pattern_category_labels {
 }
 
 #pattern_overview>* {
-    width: 100%;
+    /* width: 100%; */
+    flex: 1;
+}
+
+/* Begin Crochet mode button. auto height for text match, base on padding */
+button#crochet_mode_button {
+    font-size: var(--font-regular);
+    padding: 17px;
+    height: auto;
+}
+
+/* The section that contains the preview gallery. */
+/* has large hero image and smaller image gallery */
+.crochet_gallery {
+    background: orangered;
+    display: flex;
+    flex-direction: column;
+    margin-block-start: 2rem;
+    gap: 20px;
+}
+
+.image_gallery {
+    flex: 1;
+    height: 10%;
+    background: yellowgreen;
+
+}
+
+/* image gallery image should be big, centred */
+.gallery_hero {
+    border-radius: var(--corner-rounding);
+    display: block;
+    align-content: center;
+    max-width: 100%;
+    object-fit: cover;
+    flex: 4;
 }
