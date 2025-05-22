@@ -50,7 +50,7 @@
 body {
     padding: 0;
     margin: 0;
-    background: var(--off-white);
+    background: var(--secondary-color-light);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
@@ -66,6 +66,13 @@ table {
     color: var(--black);
 }
 
+
+
+/* ===============================
+** Navigation Bar
+** =============================== */
+/* Navigation bar has a blue background,
+** and a height of 100px on every page. */
 #navbar {
     margin: 0;
     min-height: 100px;
@@ -138,10 +145,62 @@ ul#navlist {
     outline: none;
 }
 
-/* shared page styles */
+
+/* ===============================
+** Page Footer
+** =============================== */
+/* The footer. inherits inline-flex from
+** being a horizontal list.
+** Contains two rows, site logo and links*/
+#footer {
+    position: relative;
+    bottom: 0;
+    width: 100%;
+    height: 250px;
+    background: var(--secondary-color-light);
+
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
+
+/* The logo in the middle top of the footer
+** this acts as a link home. */
+.footer_logo img {
+    max-width: 200px;
+    height: auto;
+}
+
+/* It acts as a link so must use pointer */
+.footer_logo img:hover {
+    cursor: pointer;
+}
+
+/* The list of elements in the footer
+** are slightly styled list elements and
+** links. */
+#footer_navigation li a {
+    color: var(--black);
+    text-decoration: none;
+    transition: 50ms ease-in-out;
+}
+
+#footer_navigation li a:hover {
+    color: var(--grey);
+    text-decoration: underline;
+}
+
+
+/* ===============================
+** Shared Page Styles
+** =============================== */
 /* so that pages have that padding either side */
 main {
     padding-inline: 250px;
+    background: var(--off-white);
+    padding-block-end: 65px;
 }
 
 /* make titles a little bigger, top margin related to root element */
@@ -204,6 +263,7 @@ button.button_look {
     align-items: center;
     display: inline-flex;
     gap: 20px;
+    padding-inline-start: 0;
 }
 
 /* a secondary nav bar which may contain .card_description
@@ -222,7 +282,10 @@ button.button_look {
     box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.24) inset
 }
 
-/* Index page content */
+
+/* ===============================
+** Index Page
+** =============================== */
 /* secondary nav bar labels should be
 ** evenly spaced */
 ul#pattern_category_labels {
@@ -243,7 +306,7 @@ ul#pattern_category_labels {
 
 /* Index page sections like, popular and amigurumi out to .card_description
 * have some padding between them. */
-.pattern_groups {
+#pattern_groups {
     display: flex;
     flex-direction: column;
     gap: 30px;
@@ -275,9 +338,13 @@ ul#pattern_category_labels {
     background: var(--secondary-color);
 }
 
-.pattern_card>img {
+/* So that the image of all is taking
+* up the same amount of height. .button_look*/
+.pattern_card img {
     width: 100%;
-    object-fit: none;
+    width: 100%;
+    object-fit: cover;
+    min-height: 230px;
 }
 
 .pattern_card_text {
@@ -292,7 +359,7 @@ ul#pattern_category_labels {
 .pattern_card_text .card_title {
     text-transform: capitalize;
     font-weight: 700;
-    font-size: 14pt;
+    font-size: var(--font-medium);
 }
 
 .pattern_card_text .card_description {
@@ -475,7 +542,7 @@ button#crochet_mode_button {
 
 /* Substeps is the parent for all substeps */
 .substeps {
-    margin-block-start: 2rem;
+    padding-block-start: 2rem;
     display: flex;
     flex-direction: row;
 }
@@ -539,5 +606,4 @@ button#crochet_mode_button {
     height: 200px;
     /* aspect-ratio: 3 / 2; */
     border-radius: var(--corner-rounding);
-
 }

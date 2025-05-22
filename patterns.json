@@ -1,44 +1,138 @@
 {
-    "pattern": {
+    "jacaranda-bloom-coaster": {
         "name": "Jacaranda Bloom Coaster",
-        "overview": "A decorative floral coaster inspired by blooming jacaranda trees. Perfect for adding a springtime touch to your table setting. This quick project is great for using up leftover yarn and makes a lovely handmade gift.",
-        "tools_and_materials": {
-            "yarn": {
-                "type": "Cotton DK",
-                "weight": "DK (Light Worsted)",
-                "fiber_content": "100% cotton",
-                "amount": "30g total in two colors"
+        "blurb": "A decorative floral coaster",
+        "overview": "A decorative floral coaster which has a cool and long description",
+        "category": [
+            "Popular Patterns",
+            "Tote"
+        ],
+        "hero-image": {
+            "src": "/images/jacaranda.jpg",
+            "alt": "beautiful blooms"
+        },
+        "images": [
+            {
+                "src": "/images/jacaranda.jpg",
+                "alt": "Some jacaranda flowers"
             },
+            {
+                "src": "/images/bay.png",
+                "alt": "A beautiful image of the River Derwent and stormy bay"
+            }
+        ],
+        "pattern_details": {
             "hook_sizes": [
-                "4.0 mm (G-6)"
+                "4.0 mm (G-6)",
+                "2.5 mm (G-8)"
             ],
-            "notions": [
-                "stitch markers",
-                "yarn needle",
-                "scissors"
-            ]
+            "tools": [
+                "Scissors",
+                "Stitching needle",
+                "Pick"
+            ],
+            "abbreviations": "US",
+            "materials": [
+                "Yarn for stitches",
+                "Polyfill"
+            ],
+            "complexity": "Medium"
         },
-        "gauge": {
-            "description": "10 cm x 10 cm = 18 dc × 20 rows",
-            "hook_size": "4.0 mm"
+        "steps": [
+            {
+                "title": "Create the Blossom",
+                "substeps": [
+                    {
+                        "title": "Magic Ring",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/jacaranda.jpg",
+                                "alt": "Some jacaranda flowers"
+                            },
+                            {
+                                "src": "/images/bay.png",
+                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "goose-bag": {
+        "name": "Goose Bag",
+        "overview": "A bag with a goose",
+        "category": [
+            "Tote",
+            "Popular Patterns",
+            "Amigurumi",
+            "Clothes",
+            "Beginner Pattern"
+        ],
+        "hero-image": {
+            "src": "/images/bay.png",
+            "alt": "beautiful hobart bay"
         },
-        "finished_size": "Approximately 12 cm in diameter",
-        "abbreviations": {
-            "ch": "chain",
-            "sc": "single crochet",
-            "dc": "double crochet",
-            "sl st": "slip stitch",
-            "tr": "treble crochet"
+        "images": [
+            {
+                "src": "/images/jacaranda.jpg",
+                "alt": "Some jacaranda flowers"
+            },
+            {
+                "src": "/images/rocks.png",
+                "alt": "Some jacaranda flowers"
+            },
+            {
+                "src": "/images/bay.png",
+                "alt": "A beautiful image of the River Derwent and stormy bay"
+            }
+        ],
+        "pattern_details": {
+            "hook_sizes": [
+                "12.0 mm (G-6)",
+                "2.5 mm (G-8)"
+            ],
+            "tools": [
+                "Scissors",
+                "Stitching needle",
+                "Pitchfork"
+            ],
+            "abbreviations": "US",
+            "materials": [
+                "Yarn for stitches",
+                "Polyfill"
+            ],
+            "complexity": "Hard"
         },
-        "complexity": {
-            "level": "Beginner",
-            "notes": "Uses basic stitches and simple round increases. Ideal for practicing color changes."
-        },
-        "techniques": [
-            "working in the round",
-            "color changes",
-            "increases",
-            "fastening off and weaving in ends"
+        "steps": [
+            {
+                "title": "The Head",
+                "substeps": [
+                    {
+                        "title": "Magic Ring",
+                        "instructions": [
+                            "mc 12",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/bay.png",
+                                "alt": "Beautify Hobart Bay"
+                            },
+                            {
+                                "src": "/images/rocks.png",
+                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                            }
+                        ]
+                    }
+                ]
+            }
         ]
     }
 }
