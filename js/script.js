@@ -21,6 +21,13 @@ function loadLayout() {
     // loadComponent('footer', 'footer.html');
 }
 
+// Clicking the site logo in the navigation bar takes you to the home Page
+// added to button with onclick since the button is attached to the page later
+function goHome() {
+    console.log("gohome call");
+    window.location.href = "index.html";
+}
+
 
 // ============================================================================
 //
@@ -39,4 +46,12 @@ thumbs.forEach(thumb => {
         hero.src = thumb.src;
         hero.alt = thumb.alt;
     });
+});
+
+// Clicking the crochet mode button takes you to the crochet mode Page
+// and passes some url search parameters to the page knows which pattern to show
+document.getElementById("crochet_mode_button").addEventListener("click", () => {
+    const pattern = "jacaranda-pattern"
+    const params = new URLSearchParams({ pattern });
+    window.location.href = `crochet_mode.html?${params.toString()}`;
 });

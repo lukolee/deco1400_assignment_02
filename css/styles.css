@@ -13,7 +13,8 @@
     --off-white: #FDFBF7;
 
     --font-regular: 12pt;
-    --font-large: 14pt;
+    --font-medium: 14pt;
+    --font-large: 16pt;
 
     --corner-rounding: 8px;
 }
@@ -30,28 +31,34 @@ body {
     min-height: 100px;
     height: 100px;
 
-    width: 100vw;
     display: flex;
     align-items: center;
 
     background: var(--secondary-color-light);
 }
 
-.site_nav_logo {
+/* The parent of the site logo.
+** It has the pretty yellow bg */
+#site_nav_logo {
     background: var(--primary-color);
     display: flex;
     height: 100%;
     align-items: center;
 }
 
-/* Navigation bar */
-.site_nav_logo img {
+#site_nav_logo:hover {
+    cursor: pointer;
+}
+
+/* The site logo image
+** occupies the whole 200px width,
+** vertically centred */
+#site_nav_logo img {
     padding: 0px 20px;
     /* the image */
     max-width: 200px;
     height: auto;
     object-fit: cover;
-
 }
 
 ul#navlist {
@@ -114,19 +121,31 @@ table tr td {
 }
 
 /* Links to other pages that look like a button */
-.link_button {
+.button_look {
     text-decoration: none;
     color: var(--black);
 
     border-radius: var(--corner-rounding);
-    padding: 12px;
-    height: 20px;
     background: var(--secondary-color);
     border: 1pt solid var(--secondary-color);
 }
 
-.link_button:hover {
+/* Padding / height if the button is an a */
+a.button_look {
+    padding: 12px;
+    height: 20px;
+}
+
+/* Padding & height if the button is a button */
+button.button_look {
+    font-size: var(--font-regular);
+    padding: 15px;
+    height: auto;
+}
+
+.button_look:hover {
     border: 1pt solid red;
+    cursor: pointer;
 }
 
 /* Used for lists where they should be horizontal and have no styling. */
@@ -138,20 +157,28 @@ table tr td {
     gap: 20px;
 }
 
-/* Index page content */
-ul#pattern_category_labels {
+/* a secondary nav bar which may contain .card_description
+** links, or buttons, or more*/
+.secondary_nav {
+    display: flex;
     margin: 0;
     padding: 0;
 
-    width: 100%;
     height: 75px;
-    align-items: center;
-    justify-content: space-around;
+
     background: var(--secondary-color-light);
 
     /* very light shadow so that the pattern secions background
     is more visible */
     box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.24) inset
+}
+
+/* Index page content */
+/* secondary nav bar labels should be
+** evenly spaced */
+ul#pattern_category_labels {
+    align-items: center;
+    justify-content: space-around;
 }
 
 #pattern_category_labels li a {
@@ -240,8 +267,6 @@ ul#pattern_category_labels {
 /* Begin Crochet mode button. auto height for text match, base on padding */
 button#crochet_mode_button {
     font-size: var(--font-regular);
-    padding: 17px;
-    height: auto;
 }
 
 /* The section that contains the preview gallery. */
@@ -290,3 +315,77 @@ button#crochet_mode_button {
     transform: scale(1.05);
     box-shadow: 0 0 5px #aaa;
 }
+
+
+/* ===============================
+** Crochet Mode Page
+** =============================== */
+/* Secondary nav, site side padding
+** and organise the buttons and titles.
+** flex, and children have proportional size */
+#crochet_mode_nav {
+    display: flex;
+    padding-inline: 250px;
+}
+
+/* Vertical center align the icons
+** with the text in buttons*/
+#crochet_mode_nav>*>button {
+    display: flex;
+    align-items: center;
+}
+
+/* the little text icons should have
+** display font and be bigger
+** align verticaly */
+.button_text_icon {
+    font-size: var(--font-medium);
+}
+
+#crochet_mode_exit {
+    flex: 0.5;
+    text-wrap: nowrap;
+}
+
+/* The step pattern title should have no wrap,
+** take as much x width as needed.
+** if longer than 30 chars then ... */
+#crochet_step_pattern_title {
+    flex: 2;
+
+    text-wrap: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+/* The title of the current step occupies
+** the most space, pushing other elements
+** to each end. */
+#crochet_step_title {
+    flex: 6;
+    width: 100%;
+    text-align: center;
+}
+
+/* Organise the step navigation buttons
+** to be inline */
+#crochet_step_navigation {
+    flex: 2;
+    display: inline-flex;
+    flex-direction: row;
+    justify-content: end;
+    gap: 10px;
+}
+
+/* Step page nav button text always inline */
+#crochet_step_navigation button {
+    text-wrap: nowrap;
+}
+
+
+
+/* text-wrap: nowrap;
+text-overflow: ellipsis;
+white-space: nowrap;
+overflow: hidden;
+max-width: 300px */
