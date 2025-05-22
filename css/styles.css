@@ -5,12 +5,20 @@
     --secondary-color: #B5D0E6;
     --secondary-color-light: #d0e4f2;
 
-
-    --black: #000;
+    /* --black: #000;
     --grey: #3d3d3d;
     --light-grey: #ADADAD;
     --white: #fff;
     --off-white: #FDFBF7;
+ */
+
+    --dark0: #000;
+    --dark1: #1a1a1a;
+    --dark2: #3d3d3d;
+
+    --light0: #fff;
+    --light1: #FDFBF7;
+    --light2: #ADADAD;
 
     --font-regular: 12pt;
     --font-medium: 14pt;
@@ -19,11 +27,43 @@
     --corner-rounding: 8px;
 }
 
+@media (prefers-color-scheme: dark) {
+    :root {
+        --black: var(--light0);
+        --grey: var(--dark2);
+        --light-grey: var(--light2);
+        --white: var(--dark0);
+        --off-white: var(--dark1);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    :root {
+        --black: var(--dark0);
+        --grey: var(--dark2);
+        --light-grey: var(--light2);
+        --white: var(--light0);
+        --off-white: var(--light1);
+    }
+}
+
 body {
     padding: 0;
     margin: 0;
-    background: whitesmoke;
+    background: var(--off-white);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+}
+
+/* Text elements always have black text */
+h1,
+h2,
+h3,
+h4,
+h5,
+p,
+span,
+table {
+    color: var(--black);
 }
 
 #navbar {
@@ -123,11 +163,17 @@ table tr td {
 /* Links to other pages that look like a button */
 .button_look {
     text-decoration: none;
-    color: var(--black);
+    color: black;
 
     border-radius: var(--corner-rounding);
     background: var(--secondary-color);
     border: 1pt solid var(--secondary-color);
+    transition: 75ms ease-in-out;
+}
+
+/* text within buttons is always black */
+.button_look>span {
+    color: black;
 }
 
 /* Padding / height if the button is an a */
@@ -139,13 +185,16 @@ a.button_look {
 /* Padding & height if the button is a button */
 button.button_look {
     font-size: var(--font-regular);
-    padding: 15px;
+    padding: 12px 15px;
     height: auto;
 }
 
 .button_look:hover {
-    border: 1pt solid red;
+    /* border: 1pt solid red; */
     cursor: pointer;
+    filter: brightness(0.95);
+    box-shadow: 0 0 5px var(--light-grey) inset;
+    box-shadow: 0 0 5px rgba(170, 170, 170, 0.25);
 }
 
 /* Used for lists where they should be horizontal and have no styling. */
@@ -313,7 +362,7 @@ button#crochet_mode_button {
 
 .thumb:hover {
     transform: scale(1.05);
-    box-shadow: 0 0 5px #aaa;
+    box-shadow: 0 0 5px var(--light-grey);
 }
 
 
@@ -324,6 +373,8 @@ button#crochet_mode_button {
 ** and organise the buttons and titles.
 ** flex, and children have proportional size */
 #crochet_mode_nav {
+    position: sticky;
+    top: 0;
     display: flex;
     padding-inline: 250px;
 }
@@ -353,6 +404,7 @@ button#crochet_mode_button {
 #crochet_step_pattern_title {
     flex: 2;
 
+    font-weight: 700;
     text-wrap: nowrap;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -382,10 +434,35 @@ button#crochet_mode_button {
     text-wrap: nowrap;
 }
 
+/* The highlight button should have
+** a fixed position on page, to the side. */
+.highlight_controls {
+    position: fixed;
+    /* align with h1 */
+    top: calc(175px + 2rem);
+    /* nav 100 + second nav 75 */
+    left: 135px;
 
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 
-/* text-wrap: nowrap;
-text-overflow: ellipsis;
-white-space: nowrap;
-overflow: hidden;
-max-width: 300px */
+    width: 75px;
+    text-align: center;
+    align-items: center;
+    text-wrap: wrap;
+}
+
+/* The highlight buttons have a fixed
+** width x height aiding in positioning
+** them correctly */
+.highlight_button {
+    width: 50px;
+    height: 40px;
+}
+
+/* Make text icons in highlight
+** contorl buttons larger */
+.highlight_button span {
+    font-size: var(--font-large);
+}
