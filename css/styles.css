@@ -224,11 +224,14 @@ ul#pattern_category_labels {
 }
 
 /* Pattern Overview page */
+/* main section, has two child columns. */
 #pattern_overview {
     display: flex;
     flex-direction: row;
+    gap: 15px;
 }
 
+/* Both page columns should have equal width */
 #pattern_overview>* {
     /* width: 100%; */
     flex: 1;
@@ -244,26 +247,46 @@ button#crochet_mode_button {
 /* The section that contains the preview gallery. */
 /* has large hero image and smaller image gallery */
 .crochet_gallery {
-    background: orangered;
     display: flex;
     flex-direction: column;
     margin-block-start: 2rem;
-    gap: 20px;
+    gap: 10px;
 }
 
+/* Image gallery image should be big, centred
+** width of hero is static, half the page .card_description
+** image has space on sides to fit. */
+.gallery_hero {
+    flex: 4;
+    display: block;
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    /* square image, based on width of half column */
+
+    object-fit: contain;
+    object-position: center;
+    background: var(--white);
+    border-radius: var(--corner-rounding);
+}
+
+/* Image gallery thumbnail parent.
+** Handles simple positioning. */
 .image_gallery {
     flex: 1;
-    height: 10%;
-    background: yellowgreen;
-
+    text-align: center;
 }
 
-/* image gallery image should be big, centred */
-.gallery_hero {
-    border-radius: var(--corner-rounding);
-    display: block;
-    align-content: center;
-    max-width: 100%;
+/* Image gallery previews. Simple hover effect. */
+.thumb {
+    width: 80px;
+    height: 80px;
     object-fit: cover;
-    flex: 4;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.thumb:hover {
+    transform: scale(1.05);
+    box-shadow: 0 0 5px #aaa;
 }

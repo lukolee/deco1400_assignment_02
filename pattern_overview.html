@@ -4,7 +4,10 @@
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="stylesheet" href="./css/styles.css">
-        <title>Document</title>
+        <!-- defer - wait till DOM has loaded -->
+        <script src="./js/components.js" defer></script>
+
+        <title>Pattern Overview</title>
     </head>
     <body>
         <nav id="navbar"></nav>
@@ -54,14 +57,15 @@
             <section class="crochet_gallery">
                 <img class="gallery_hero" src="/images/jacaranda.jpg" alt="Image of the crochet item">
                 <div class="image_gallery">
-                    small gallery images
+                    <img class="thumb" src="/images/jacaranda.jpg" alt="Jacaranda">
+                    <img class="thumb" src="/images/rocks.png" alt="Item 2">
+                    <img class="thumb" src="/images/beach.png" alt="Item 3">
+                    <img class="thumb" src="/images/bay.png" alt="Item 4">
                 </div>
             </section>
         </main>
 
-        <script src="./js/components.js"></script>
-        <script>
-          window.addEventListener('DOMContentLoaded', loadLayout);
-        </script>
+
+        <script src="/js/script.js"></script>
     </body>
 </html>
