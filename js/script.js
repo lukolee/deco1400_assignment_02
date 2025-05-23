@@ -45,6 +45,8 @@ function handlePatternUsage() {
         populateOverviewData(patternKey);
         patternGalleryThumbStitching();
 
+        // page title to the name of the current patterns
+        document.title = patternDataList[patternKey]["name"];
     }
 }
 
