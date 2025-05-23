@@ -41,9 +41,10 @@ function handlePatternUsage() {
 
     if (window.location.pathname.endsWith('pattern_overview.html')) {
         let patternKey = new URLSearchParams(document.location.search).get("pattern");
-        patternGalleryThumbStitching();
         enterCrochetMode(patternKey);
         populateOverviewData(patternKey);
+        patternGalleryThumbStitching();
+
     }
 }
 
@@ -71,7 +72,6 @@ async function loadPatterns() {
         console.error(error);
     }
 }
-
 
 /**
 * Organise pattern categories across all patterns.
@@ -186,7 +186,7 @@ function navigateToPattern(location) {
 * is updated to that thumbnail's source and alt.
 */
 function patternGalleryThumbStitching() {
-    const hero = document.querySelector('.gallery_hero');
+    const hero = document.querySelector('#gallery_hero');
     const thumbs = document.querySelectorAll('.thumb'); // list of thumbs
     // For each thumb, add event listener.
     // Upon click update its src attribute with the clicked thumb's.
@@ -222,7 +222,9 @@ function populateOverviewData(patternKey) {
     title.textContent = patternData["name"];
 
     populateYarnSection(patternData["yarn"]);
-    populatePatternDetails(patternData["pattern_details"])
+    populatePatternDetails(patternData["pattern_details"]);
+    populatePatterOverview(patternData["overview"]);
+    populatePatternGallery(patternData["hero-image"], patternData['images']);
 }
 
 /**
@@ -257,32 +259,72 @@ function populateYarnSection(yarnList) {
 * @param {*} pattern_details  The list of objects specifying the details.
 */
 function populatePatternDetails(pattern_details) {
-    console.log(pattern_details)
-
-    // <tr>
-    //     <td>Complexity</td>
-    //     <td>h</td>
-    // </tr>
-    //
     const details_parent = document.getElementById("pattern_details");
 
     Object.entries(pattern_details).forEach(([key, entry]) => {
-        console.log(entry)
         const row = document.createElement('tr');
 
         const row_title = document.createElement("td");
         row_title.textContent = key;
 
-        const row_data = document.createElement("tr");
+        const row_data = document.createElement("td");
         row_data.textContent = entry;
         // might have to prettify list -> string
 
         row.append(row_title, row_data);
         details_parent.appendChild(row);
-    })
-
+    });
 }
 
+/**
+* Attach the overview_data to the correct text element on the page.
+* @param {*} overview_data The text object with description.
+*/
+function populatePatterOverview(overview_data) {
+    const overview = document.getElementById("pattern_overview_description");
+    overview.textContent = overview_data;
+}
+
+/**
+* Load the appropriate images into the gallery, and add elements where required.
+* then set the source and alt attributes thereof.
+* @param {*} hero_image Hero image Object
+* @param {*} images List of image Objects
+*/
+function populatePatternGallery(hero_image, images) {
+    // remember to make the first image thumbnail the hero so when others
+    // are selected you can get the hero back
+
+    // find the gallery parent everything is attached to
+    const crochet_gallery = document.getElementById("crochet_gallery");
+    // find the gallery the thumbnails are attached to.
+    const thumb_gallery = document.getElementById("thumb_gallery");
+    // Find the hero image (placeholder by default in case load fails).
+    const gallery_hero = document.getElementById("gallery_hero");
+
+    gallery_hero.src = hero_image["src"];
+    gallery_hero.alt = hero_image["alt"];
+
+    // The hero image should be the first element in thumbnail gallery.
+    const hero_thumbnail = document.createElement('img');
+    hero_thumbnail.classList.add("thumb")
+    hero_thumbnail.src = hero_image["src"];
+    hero_thumbnail.alt = "Item 1: " + hero_image["alt"];
+    thumb_gallery.appendChild(hero_thumbnail);
+
+    // Add the index of image in array + 1 to alt text, plus
+    // its alt text stored in the JSON
+    images.forEach((image, index, array) => {
+        const thumbnail = document.createElement('img');
+        thumbnail.classList.add("thumb")
+        thumbnail.src = image["src"];
+        // appends the index to alt text
+        thumbnail.alt += `Item ${index + 1}: `;
+        thumbnail.alt += image["alt"];
+
+        thumb_gallery.appendChild(thumbnail);
+    })
+}
 // ============================================================================
 //
 // Crochet Mode Page
