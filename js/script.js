@@ -4,57 +4,12 @@ window.addEventListener('DOMContentLoaded', () => {
     loadPatterns();
 });
 
-// load a html snippet from a file url
-function loadComponent(id, url) {
-    fetch(url)
-        .then(res => {
-            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
-            return res.text();
-        })
-        .then(data => {
-            document.getElementById(id).innerHTML = data;
-        })
-        .catch(err => console.error(`Could not load ${url}: ${err}`));
-}
-
-// allow for laoding html snippets / images into a page and attach to
-// an element with id "navbar"
-function loadLayout() {
-    loadComponent('navbar', 'js/navbar.html');
-    loadComponent('footer', 'js/footer.html');
-}
-
-// Clicking the site logo in the navigation bar takes you to the home Page
-// added to button with onclick since the button is attached to the page later
-function goHome() {
-    window.location.href = "index.html";
-}
-
-// Since the apttern data is loaded asynchronously, we only want to
-// be using it on those pages where each function is required.
-function handlePatternUsage() {
-    patternCategories();
-
-    if (window.location.pathname.endsWith('index.html')) {
-        populateSections();
-    }
-
-    if (window.location.pathname.endsWith('pattern_overview.html')) {
-        let patternKey = new URLSearchParams(document.location.search).get("pattern");
-        enterCrochetMode(patternKey);
-        populateOverviewData(patternKey);
-        patternGalleryThumbStitching();
-
-        // page title to the name of the current patterns
-        document.title = patternDataList[patternKey]["name"];
-    }
-}
-
 // Null till the promise has been fullfilled
 let patternDataList = null;
 // dictionary of patterns, organised with key of category, and value the pattern
 // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Map
 let allPatternCategories = new Map();
+
 
 /**
 * Asynchronously load the pattern data file and turn into JSON,
@@ -72,6 +27,46 @@ async function loadPatterns() {
         handlePatternUsage();
     } catch (error) {
         console.error(error);
+    }
+}
+
+// Since the apttern data is loaded asynchronously, we only want to
+// be using it on those pages where each function is required.
+function handlePatternUsage() {
+    patternCategories();
+
+    // not elif because i find this easier to read.
+    if (window.location.pathname.endsWith('index.html')) {
+        populateSections();
+    }
+
+    if (window.location.pathname.endsWith('pattern_overview.html')) {
+        // the key of the java object is used for page navigation,
+        // so the next page knows what object key to lookup.
+        // insightful doc on how to use search params
+        // https://developer.mozilla.org/en-US/docs/Web/API/URLSearchParams
+        let patternKey = new URLSearchParams(document.location.search).get("pattern");
+        enterCrochetMode(patternKey);
+        populateOverviewData(patternKey);
+        patternGalleryThumbStitching();
+
+        // page title to the name of the current patterns
+        document.title = patternDataList[patternKey]["name"];
+    }
+
+    if (window.location.pathname.endsWith("crochet_mode.html")) {
+        let patternKey = new URLSearchParams(document.location.search).get("pattern");
+
+        // index the step to zero;
+        let step = Number(new URLSearchParams(document.location.search).get("step"));
+
+        document.title = patternDataList[patternKey]["name"];
+
+        // pass along only this pattern - others irrelevant
+        const patternData = patternDataList[patternKey];
+
+        populateCModeNav(patternKey, patternData, step);
+        populateSubSteps(patternKey, patternData, step)
     }
 }
 
@@ -101,6 +96,33 @@ function patternCategories() {
         }
     })
 }
+
+// load a html snippet from a file url
+function loadComponent(id, url) {
+    fetch(url)
+        .then(res => {
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            return res.text();
+        })
+        .then(data => {
+            document.getElementById(id).innerHTML = data;
+        })
+        .catch(err => console.error(`Could not load ${url}: ${err}`));
+}
+
+// allow for laoding html snippets / images into a page and attach to
+// an element with id "navbar"
+function loadLayout() {
+    loadComponent('navbar', 'js/navbar.html');
+    loadComponent('footer', 'js/footer.html');
+}
+
+// Clicking the site logo in the navigation bar takes you to the home Page
+// added to button with onclick since the button is attached to the page later
+function goHome() {
+    window.location.href = "index.html";
+}
+
 
 // ============================================================================
 //
@@ -208,7 +230,7 @@ function patternGalleryThumbStitching() {
 */
 function enterCrochetMode(destination) {
     document.getElementById("crochet_mode_button").addEventListener("click", () => {
-        window.location.href = `crochet_mode.html?pattern=${destination}`;
+        window.location.href = `crochet_mode.html?pattern=${destination}&step=0`;
     });
 }
 
@@ -327,8 +349,165 @@ function populatePatternGallery(hero_image, images) {
         thumb_gallery.appendChild(thumbnail);
     })
 }
+
 // ============================================================================
 //
 // Crochet Mode Page
 //
 // ============================================================================
+
+/**
+*
+* @param {*} patternDataList
+*/
+function populateCModeNav(patternKey, patternData, step_index) {
+
+    // i wish JS had types - this was a pain till found you can make a number
+    // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Number
+    // user sees the non zero-indexed steps
+    const user_step_index = 1 + Number(step_index);
+
+    const title = document.getElementById("crochet_step_pattern_title");
+    const step_title = document.getElementById("crochet_step_title");
+    const previous_step_button = document.getElementById("crochet_step_back");
+    const next_step_button = document.getElementById("crochet_step_forward");
+
+    const localsteps = patternData["steps"];
+
+    // Make sure step_index is within how many there are
+    const step_name = localsteps[step_index]["title"];
+
+    title.innerText = patternData["name"];
+    // reindex step for user view
+    step_title.innerText = user_step_index + ": " + step_name;
+
+    previous_step_button.addEventListener('click', () => {
+        window.location.href = `crochet_mode.html?pattern=${patternKey}&step=${calculatePreviousStep(step_index)}`
+    });
+    next_step_button.addEventListener(('click'), () => {
+        window.location.href = `crochet_mode.html?pattern=${patternKey}&step=${calculateNextStep(step_index, localsteps)}`
+    });
+}
+
+/**
+* Calculate previous step index.
+* @param {*} index the string version of the current step
+* @returns Int version of previous step index
+*/
+function calculatePreviousStep(index) {
+    index = Number(index);
+    if (index < 0 || index === 0) {
+        return 0;
+    } else if (index >= 1) {
+        return (index - 1);
+    } else {
+        console.error("Some previous step calculation error occured")
+    }
+}
+
+/**
+* Calculate the index of the next step to be completed.
+* @param {*} index the string version of the current step
+*/
+function calculateNextStep(index, steparray) {
+    console.log("Hi")
+    index = Number(index);
+    if (index < 0) {
+        return 0
+    } else if (index >= 0) {
+        const next_index = index + 1;
+        // only index if there is a next
+        return (next_index <= (steparray.length - 1)) ? next_index : index;
+    } else {
+        console.error("Some next step error occured")
+    }
+}
+
+
+/**
+* Create all the sub components for each substep and attach them to a parent.
+* @param {*} patternKey Pattern object key in list.
+* @param {*} patternData The data for the pattern for which to generate subs.
+* @param {*} step the index of the current pattern step.
+*/
+function populateSubSteps(patternKey, patternData, step) {
+
+    const pattern_steps = patternData["steps"][step]["substeps"];
+
+    const substeps_parent_container = document.getElementById("substeps");
+
+    // build and attach substep section for every one
+    // adding text node solved the multiple parts of the titles
+    // span https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode
+    pattern_steps.forEach((substep, index) => {
+        console.log(substep)
+
+        const parent = document.createElement('section');
+        parent.classList.add("substep");
+        parent.id = "substep-" + index;
+
+        // create the title section
+        const title = document.createElement('span');
+        title.classList.add("substep_title");
+        const title_index = document.createElement("b");
+        // index for user eyes
+        title_index.textContent = (Number(step) + 1) + "." + (index + 1) + " ";
+        title.appendChild(title_index);
+        const title_text = document.createTextNode(substep["title"])
+        title.appendChild(title_text)
+        parent.appendChild(title);
+
+        // create the content section with rounds and images
+        const substep_content = document.createElement('div');
+        substep_content.classList.add('substep_content');
+        const substep_rounds = document.createElement("div");
+        substep_rounds.classList.add("substep_rounds");
+        populateSubstepRounds(step, index, substep, substep_rounds);
+        // image gallery
+        const substep_images = document.createElement('div');
+        substep_images.classList.add("substep_images");
+        populateSubstepImages(substep, substep_images);
+
+        substep_content.appendChild(substep_rounds);
+        substep_content.appendChild(substep_images);
+        parent.appendChild(substep_content);
+
+        substeps_parent_container.appendChild(parent);
+    });
+}
+
+/**
+* Populate all of the rounds that are associated with each substep.
+* @param {*} substep The object containing all substep information
+* @param {*} parent The parent node to attack the rounds to.
+*/
+function populateSubstepRounds(step, substep_index, substep, parent) {
+    const instructions = substep["instructions"];
+
+    instructions.forEach((instruction, index) => {
+        const round = document.createElement('p');
+        round.classList.add("round");
+        round.id = "substep-" + step + "." + substep_index + "_round-" + index;
+
+        round.textContent = instruction;
+
+        parent.appendChild(round)
+    });
+}
+
+/**
+* Populate the substep images section.
+* @param {*} substep The object containing all substep information
+* @param {*} parent The parent node to attach the images to.
+*/
+function populateSubstepImages(substep, parent) {
+    const images = substep["images"];
+
+    images.forEach(image => {
+        const substep_image = document.createElement('img');
+        substep_image.src = image["src"];
+        substep_image.alt = image["alt"];
+
+        parent.appendChild(substep_image);
+    });
+}

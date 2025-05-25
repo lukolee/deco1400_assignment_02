@@ -13,13 +13,25 @@
         <nav id="navbar"></nav>
         <ul id="crochet_mode_nav" class="horizontal_list secondary_nav">
             <li id="crochet_mode_exit">
-                <button class="button_look"><span class="button_text_icon">&#10005;&nbsp;</span>Exit</button>
+                <button
+                    class="button_look"
+                    onclick="history.back()"
+                >
+                    <span class="button_text_icon">&#10005;&nbsp;</span>
+                    Exit
+                </button>
             </li>
             <li id="crochet_step_pattern_title">Crochet Pattern Title</li>
             <li id="crochet_step_title">Step Title</li>
             <li id="crochet_step_navigation">
-                <button class="button_look"><span class="button_text_icon">&#8592;&nbsp;</span>Back</button>
-                <button class="button_look">Next <span class="button_text_icon">&nbsp;&#8594;</span></button>
+                <button class="button_look" id="crochet_step_back">
+                    <span class="button_text_icon">&#8592;&nbsp;</span>
+                    Back
+                </button>
+                <button class="button_look" id="crochet_step_forward">
+                    Next
+                    <span class="button_text_icon">&nbsp;&#8594;</span>
+                </button>
             </li>
         </ul>
         <main>
@@ -28,23 +40,8 @@
                 <button class="button_look highlight_button" id="highlight_up"><span>&#8593;</span></button>
                 <button class="button_look highlight_button" id="highlight_down"><span>&#8595;</span></button>
             </section>
-            <section class="substeps">
-                <section class="substep" id="substep-1">
-                    <span class="substep_title"><b>substep-#</b> Substep title</span>
-                    <div class="substep_rounds">
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                        <p class="round round_complete" id="substep-1.1_round-1">slst 5</p>
-                    </div>
-                </section>
-                <div class="substep_images">
-                    <img src="images/beach.png" alt="">
-                    <img src="images/bay.png" alt="">
-                </div>
+            <section id="substeps">
+                <!-- Populated with JS -->
             </section>
         </main>
         <div id="footer"></div>

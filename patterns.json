@@ -71,6 +71,65 @@
                                 "alt": "A beautiful image of the River Derwent and stormy bay"
                             }
                         ]
+                    },
+                    {
+                        "title": "Magic Ring",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/jacaranda.jpg",
+                                "alt": "Some jacaranda flowers"
+                            },
+                            {
+                                "src": "/images/bay.png",
+                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                            }
+                        ]
+                    },
+                    {
+                        "title": "Magic Ring",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/jacaranda.jpg",
+                                "alt": "Some jacaranda flowers"
+                            },
+                            {
+                                "src": "/images/bay.png",
+                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                "title": "Create the Crown",
+                "substeps": [
+                    {
+                        "title": "Non-magic Ring",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/jacaranda.jpg",
+                                "alt": "Some jacaranda flowers"
+                            },
+                            {
+                                "src": "/images/bay.png",
+                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                            }
+                        ]
                     }
                 ]
             }

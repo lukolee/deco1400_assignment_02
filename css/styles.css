@@ -232,7 +232,7 @@ table tr td {
 
 /* grey button are secondary, so have a light colour */
 .button_grey {
-    background: var(--light-grey);
+    background: var(--secondary-color-light);
 }
 
 /* text within buttons is always black */
@@ -567,14 +567,22 @@ button#crochet_mode_button {
 }
 
 /* Substeps is the parent for all substeps */
-.substeps {
+#substeps {
     padding-block-start: 2rem;
     display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.substep_content {
+    display: flex;
     flex-direction: row;
+    justify-content: space-between;
 }
 
 .substep {
     flex: 4;
+    flex-direction: row;
 }
 
 /* The title of each substep is medium size
