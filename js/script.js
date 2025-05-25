@@ -19,7 +19,7 @@ let allPatternCategories = new Map();
 */
 async function loadPatterns() {
     try {
-        const result = await fetch('/patterns.json');
+        const result = await fetch('/data/patterns.json');
         const patternJSON = await result.json();
 
         patternDataList = patternJSON;
@@ -72,7 +72,7 @@ function handlePatternUsage() {
 
         populateCModeNav(patternKey, patternData, step);
         populateSubSteps(patternKey, patternData, step, countercontext)
-        activateHighlightControl(countercontext);
+        activateHighlightControl(countercontext, patternKey);
     }
 }
 
@@ -518,16 +518,28 @@ function populateSubstepImages(substep, parent) {
 
 /**
 *
+* Uses localstorage to retain pattern progress:
+* thanks to MDN for refreshing knowledge of this
+* https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 */
-function activateHighlightControl(countercontext) {
+function activateHighlightControl(countercontext, patternKey) {
     const up = document.getElementById("highlight_up");
     const down = document.getElementById("highlight_down");
     const roundsMaxIndex = countercontext.substep_round_counter;
 
+    // If not already set, then retrieve and re-highlight on refresh
+    // the progress for the pattern based on patternKey
     let highlight_count = 0;
+    if (localStorage.getItem(patternKey)) {
+        highlight_count = localStorage.getItem(patternKey);
+        refreshHighlight(highlight_count);
+    } else {
+        localStorage.setItem("patternKey", 0);
+    }
 
     up.addEventListener('click', () => {
-        console.log(highlight_count, "up");
+        console.log(localStorage.getItem("patternKey"))
+
         if (highlight_count >= 1) {
             highlight_count--;
         }
@@ -535,11 +547,11 @@ function activateHighlightControl(countercontext) {
             const round = document.getElementById(`round-${highlight_count}`);
             round.classList.remove("round_complete")
         }
-
+        localStorage.setItem(patternKey, highlight_count);
     });
 
     down.addEventListener('click', () => {
-        console.log(highlight_count, "down -- rmi = ", roundsMaxIndex);
+        console.log(localStorage.getItem(patternKey))
 
         if (0 <= highlight_count <= roundsMaxIndex) {
             const round = document.getElementById(`round-${highlight_count}`);
@@ -548,5 +560,19 @@ function activateHighlightControl(countercontext) {
         if (highlight_count < (roundsMaxIndex - 1)) {
             highlight_count++;
         }
+        localStorage.setItem(patternKey, highlight_count);
     });
+}
+
+/**
+* Reapply the highlight for steps of a particular pattern up to index upTo.
+* @param {*} upTo The index of round to which the round_complete
+** class (highlight) should be applied.
+*/
+function refreshHighlight(upTo) {
+    console.log("up to => ", upTo)
+    for (i = 0; i < upTo; i++) {
+        const round = document.getElementById(`round-${i}`);
+        round.classList.add("round_complete")
+    }
 }
