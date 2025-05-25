@@ -271,12 +271,14 @@ button.button_look {
     padding-inline-start: 0;
 }
 
-/* a secondary nav bar which may contain .card_description
-** links, or buttons, or more*/
+/* Base for a secondary nav, simply makes it go across
+** horizontally, float on top with a slight top inset shadow
+** so it appears separate from main nav */
 .secondary_nav {
     display: flex;
     margin: 0;
     padding: 0;
+    z-index: 100;
 
     height: 75px;
 
@@ -604,6 +606,10 @@ button#crochet_mode_button {
 .round {
     /* display: block; */
     margin: 0;
+    position: relative;
+    display: block;
+    width: fit-content;
+    padding: 3px 4px;
 }
 
 /* Apply a "highlight" to the text of the

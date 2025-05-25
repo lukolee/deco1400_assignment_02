@@ -65,8 +65,14 @@ function handlePatternUsage() {
         // pass along only this pattern - others irrelevant
         const patternData = patternDataList[patternKey];
 
+        // for indexing substeps rounds, later used for highlight.
+        // had issue where substep_round_counter was passed as copy, not reference. The solution by "pointy" solved my issue:
+        // https://stackoverflow.com/questions/7744611/pass-variables-by-reference-in-javascript
+        let countercontext = { substep_round_counter: 0 };
+
         populateCModeNav(patternKey, patternData, step);
-        populateSubSteps(patternKey, patternData, step)
+        populateSubSteps(patternKey, patternData, step, countercontext)
+        activateHighlightControl(countercontext);
     }
 }
 
@@ -240,7 +246,6 @@ function enterCrochetMode(destination) {
 */
 function populateOverviewData(patternKey) {
     const patternData = patternDataList[patternKey];
-    console.log(patternData);
 
     const title = document.getElementById('pattern_overview_title');
     title.textContent = patternData["name"];
@@ -410,7 +415,6 @@ function calculatePreviousStep(index) {
 * @param {*} index the string version of the current step
 */
 function calculateNextStep(index, steparray) {
-    console.log("Hi")
     index = Number(index);
     if (index < 0) {
         return 0
@@ -430,7 +434,7 @@ function calculateNextStep(index, steparray) {
 * @param {*} patternData The data for the pattern for which to generate subs.
 * @param {*} step the index of the current pattern step.
 */
-function populateSubSteps(patternKey, patternData, step) {
+function populateSubSteps(patternKey, patternData, step, countercontext) {
 
     const pattern_steps = patternData["steps"][step]["substeps"];
 
@@ -440,7 +444,6 @@ function populateSubSteps(patternKey, patternData, step) {
     // adding text node solved the multiple parts of the titles
     // span https://developer.mozilla.org/en-US/docs/Web/API/Document/createTextNode
     pattern_steps.forEach((substep, index) => {
-        console.log(substep)
 
         const parent = document.createElement('section');
         parent.classList.add("substep");
@@ -462,7 +465,7 @@ function populateSubSteps(patternKey, patternData, step) {
         substep_content.classList.add('substep_content');
         const substep_rounds = document.createElement("div");
         substep_rounds.classList.add("substep_rounds");
-        populateSubstepRounds(step, index, substep, substep_rounds);
+        populateSubstepRounds(countercontext, substep, substep_rounds);
         // image gallery
         const substep_images = document.createElement('div');
         substep_images.classList.add("substep_images");
@@ -481,13 +484,14 @@ function populateSubSteps(patternKey, patternData, step) {
 * @param {*} substep The object containing all substep information
 * @param {*} parent The parent node to attack the rounds to.
 */
-function populateSubstepRounds(step, substep_index, substep, parent) {
+function populateSubstepRounds(countercontext, substep, parent) {
     const instructions = substep["instructions"];
 
     instructions.forEach((instruction, index) => {
         const round = document.createElement('p');
         round.classList.add("round");
-        round.id = "substep-" + step + "." + substep_index + "_round-" + index;
+        round.id = `round-${countercontext.substep_round_counter}`;
+        countercontext.substep_round_counter++;
 
         round.textContent = instruction;
 
@@ -509,5 +513,40 @@ function populateSubstepImages(substep, parent) {
         substep_image.alt = image["alt"];
 
         parent.appendChild(substep_image);
+    });
+}
+
+/**
+*
+*/
+function activateHighlightControl(countercontext) {
+    const up = document.getElementById("highlight_up");
+    const down = document.getElementById("highlight_down");
+    const roundsMaxIndex = countercontext.substep_round_counter;
+
+    let highlight_count = 0;
+
+    up.addEventListener('click', () => {
+        console.log(highlight_count, "up");
+        if (highlight_count >= 1) {
+            highlight_count--;
+        }
+        if (0 <= highlight_count <= roundsMaxIndex) {
+            const round = document.getElementById(`round-${highlight_count}`);
+            round.classList.remove("round_complete")
+        }
+
+    });
+
+    down.addEventListener('click', () => {
+        console.log(highlight_count, "down -- rmi = ", roundsMaxIndex);
+
+        if (0 <= highlight_count <= roundsMaxIndex) {
+            const round = document.getElementById(`round-${highlight_count}`);
+            round.classList.add("round_complete")
+        }
+        if (highlight_count < (roundsMaxIndex - 1)) {
+            highlight_count++;
+        }
     });
 }
