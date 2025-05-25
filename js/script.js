@@ -72,7 +72,8 @@ function handlePatternUsage() {
 
         populateCModeNav(patternKey, patternData, step);
         populateSubSteps(patternKey, patternData, step, countercontext)
-        activateHighlightControl(countercontext, patternKey);
+        activateHighlightControl(countercontext, patternKey, step);
+        enableExit(patternKey);
     }
 }
 
@@ -517,12 +518,14 @@ function populateSubstepImages(substep, parent) {
 }
 
 /**
-*
+* Highlight the requisite substep rounds of the pattern.
+* Queries localstorage to see if this has been set for each step of a pattern,
+* allowing for persistance across refreshes.
 * Uses localstorage to retain pattern progress:
 * thanks to MDN for refreshing knowledge of this
 * https://developer.mozilla.org/en-US/docs/Web/API/Window/localStorage
 */
-function activateHighlightControl(countercontext, patternKey) {
+function activateHighlightControl(countercontext, patternKey, step) {
     const up = document.getElementById("highlight_up");
     const down = document.getElementById("highlight_down");
     const roundsMaxIndex = countercontext.substep_round_counter;
@@ -530,15 +533,17 @@ function activateHighlightControl(countercontext, patternKey) {
     // If not already set, then retrieve and re-highlight on refresh
     // the progress for the pattern based on patternKey
     let highlight_count = 0;
-    if (localStorage.getItem(patternKey)) {
-        highlight_count = localStorage.getItem(patternKey);
+
+    const pattern_key_step = (patternKey + "-" + step);
+    if (localStorage.getItem(pattern_key_step)) {
+        highlight_count = localStorage.getItem(pattern_key_step);
         refreshHighlight(highlight_count);
     } else {
-        localStorage.setItem("patternKey", 0);
+        localStorage.setItem(pattern_key_step, 0);
     }
 
     up.addEventListener('click', () => {
-        console.log(localStorage.getItem("patternKey"))
+        console.log(localStorage.getItem(pattern_key_step))
 
         if (highlight_count >= 1) {
             highlight_count--;
@@ -547,11 +552,11 @@ function activateHighlightControl(countercontext, patternKey) {
             const round = document.getElementById(`round-${highlight_count}`);
             round.classList.remove("round_complete")
         }
-        localStorage.setItem(patternKey, highlight_count);
+        localStorage.setItem(pattern_key_step, highlight_count);
     });
 
     down.addEventListener('click', () => {
-        console.log(localStorage.getItem(patternKey))
+        console.log(localStorage.getItem(pattern_key_step))
 
         if (0 <= highlight_count <= roundsMaxIndex) {
             const round = document.getElementById(`round-${highlight_count}`);
@@ -560,7 +565,7 @@ function activateHighlightControl(countercontext, patternKey) {
         if (highlight_count < (roundsMaxIndex - 1)) {
             highlight_count++;
         }
-        localStorage.setItem(patternKey, highlight_count);
+        localStorage.setItem(pattern_key_step, highlight_count);
     });
 }
 
@@ -575,4 +580,14 @@ function refreshHighlight(upTo) {
         const round = document.getElementById(`round-${i}`);
         round.classList.add("round_complete")
     }
+}
+
+/**
+* Enable the exit button on the crochet mode page.
+*/
+function enableExit(pattern) {
+    const exit_button = document.getElementById("crochet_mode_exit");
+    exit_button.addEventListener('click', () => {
+        window.location.href = `pattern_overview.html?pattern=${pattern}`
+    })
 }

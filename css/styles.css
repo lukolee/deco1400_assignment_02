@@ -1,9 +1,19 @@
 /* colour variables */
 :root {
-    --primary-color: #F7CD75;
+    /* --primary-color: #F7CD75; */
     --primary-color-light: #e74c3c;
     --secondary-color: #B5D0E6;
     --secondary-color-light: #d0e4f2;
+
+    --c1: #F7CD75;
+    --c1-vivid: #fcc040;
+
+    --c2: #B5D0E6;
+    --c2-vivid: #96b4cc;
+    --c2-light: #d0e4f2;
+    --c2-light-vivid: #7897ad;
+
+
 
     /* --black: #000;
     --grey: #3d3d3d;
@@ -29,6 +39,11 @@
 
 @media (prefers-color-scheme: dark) {
     :root {
+        --primary-color: var(--c1-vivid);
+        --primary-color-light: #e74c3c;
+        --secondary-color: var(--c2-vivid);
+        --secondary-color-light: var(--c2-light-vivid);
+
         --black: var(--light0);
         --grey: var(--dark2);
         --light-grey: var(--light2);
@@ -39,6 +54,11 @@
 
 @media (prefers-color-scheme: light) {
     :root {
+        --primary-color: var(--c1);
+        --primary-color-light: #e74c3c;
+        --secondary-color: var(--c2);
+        --secondary-color-light: var(--c2-light);
+
         --black: var(--dark0);
         --grey: var(--dark2);
         --light-grey: var(--light2);
@@ -646,4 +666,33 @@ button#crochet_mode_button {
     height: 200px;
     /* aspect-ratio: 3 / 2; */
     border-radius: var(--corner-rounding);
+}
+
+/* Some manual overrides when user computer is dark mode */
+@media (prefers-color-scheme: dark) {
+
+    /* The highlight of rounds necessitates a darker colour. */
+    .round_complete {
+        background: #99701c !important;
+    }
+
+    /* Card text on home screen looks better when black,
+   * due to blue card background. */
+    .card_title,
+    .card_description,
+    #pattern_category_labels li a {
+        color: var(--white)
+    }
+
+    /* Inverted footer iamge (make white) for dark mode.
+    * as on dark blue background. */
+    .footer_logo img {
+        filter: invert();
+    }
+
+    /* The link hover grey which is normally the highlight colour
+    * looks weird when coming from white.; */
+    #footer_navigation li a:hover {
+        color: var(--light1)
+    }
 }
