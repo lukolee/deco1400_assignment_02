@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/styles.css">
+            <!-- Defer - wait for the page to load -->
+        <script src="./js/script.js" defer></script>
+        <title>Crochet Cache - About</title>
+    </head>
+    <body>
+        <nav id="navbar"></nav>
+        <main class="contact">
+            <section>
+                <h1>Send Us a Message</h1>
+                <form id="send-message">
+                    <textarea
+                        id="contact_message"
+                        class="form_input"
+                        placeholder="Your message..."
+                        required
+                    ></textarea>
+                    <input
+                        class="form_input"
+                        type="email"
+                        placeholder="email@example.com..."
+                        required
+                    >
+                    <div class="inline_children">
+                        <button
+                            type="submit"
+                            id="contact_form_submit"
+                            class="button_look"
+                        >
+                            Submit
+                        </button>
+                        <span id="submit_status" class="form_success"></span>
+                    </div>
+
+                </form>
+            </section>
+            <section>
+                <h1>Business Address</h1>
+                <p>88 Loopy Terrace</p>
+                <p>Brisbane, 4000</p>
+            </section>
+        </main>
+        <footer id="footer"></footer>
+    </body>
+</html>

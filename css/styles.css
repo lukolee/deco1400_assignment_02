@@ -349,8 +349,12 @@ ul#pattern_category_labels {
     /* this makes a row with incorrect number span in a very strange way */
 }
 
+/* The card for each pattern on index.
+* Width was selected through iterative process to achieve balance between
+* height and width with image / text content balance.
+* It has a short ease-in-out delay for the hover effect. */
 .pattern_card {
-    width: 200px;
+    width: 225px;
     height: 350px;
     border: 1pt solid var(--secondary-color);
     overflow: hidden;
@@ -361,6 +365,7 @@ ul#pattern_category_labels {
     cursor: pointer;
 }
 
+/* BG changes from secondary (light) to darker colour on hover. */
 .pattern_card:hover {
     background: var(--secondary-color);
 }
@@ -667,6 +672,120 @@ button#crochet_mode_button {
     /* aspect-ratio: 3 / 2; */
     border-radius: var(--corner-rounding);
 }
+
+
+
+
+/* ===============================
+** About Page, Support Page
+** =============================== */
+/* Add some padding to make the littler text be more in the center
+* of the screen, and a min height so the page doesnt have a large footer. */
+.about,
+.support,
+.contact {
+    min-height: 50vh;
+    display: flex;
+    flex-direction: column;
+    padding-block-start: 50px;
+}
+
+/* spacing between different support sections on the support page */
+.support article section {
+    /* gap: 20px; */
+    padding-block-end: 10px;
+}
+
+/* * A max width is applied so the text span width is more comfortable to read.*/
+.about p,
+.support p {
+    max-width: 500px;
+}
+
+/* ===============================
+** Contact Page
+** =============================== */
+/* make the elements vertical stack */
+.contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+/* Style the contact form inputs to resemble the search bar,
+* with a slight grey border (1.5pt was the corerct balance between thick and thin), and white background, bit of a border radius.
+* also give it a minimum height to imply message input,
+* not just one line.
+* add a transition time for the outline effect. */
+.form_input {
+    width: 500px;
+    vertical-align: top;
+    font-size: var(--font-regular);
+    padding: 12px;
+    border-radius: var(--corner-rounding);
+    border: 1.5pt solid var(--light-grey);
+
+    background: var(--white);
+    color: var(--black);
+    transition: 75ms ease-in-out
+}
+
+/* Found a cool MDN article about form validation thats already in html
+* https://developer.mozilla.org/en-US/docs/Learn_web_development/Extensions/Forms/Form_validation */
+/* style valid form outline (normal) */
+.contact input:valid,
+.contact textarea:valid {
+    outline: 1.5pt solid var(--light-grey);
+}
+
+/* Style the invalid form outline
+* but only show the requied error if focus was. */
+.contact input:invalid:required:focus,
+.contact textarea:invalid:required:focus {
+    outline: 1.5pt solid red;
+}
+
+/* Give the textarea the desired size, and disable resize. */
+#contact_message {
+    min-height: 100px;
+    resize: none;
+}
+
+/* Make the outline a little bit different on focus. */
+#contact_message:focus,
+.contact input:focus {
+    outline: 1.5pt solid var(--grey);
+}
+
+/* Make the button not span the whole page width */
+.contact button {
+    width: fit-content;
+}
+
+
+/* Submit form status message, add a little padding to it */
+#submit_status {
+    padding-inline: 15px;
+
+}
+
+/* make the submit_status span (next to button) green on success */
+.form_success {
+    color: greenyellow
+}
+
+/* make form submit status text red if theres an issue */
+.form_failure {
+    color: darkred
+}
+
+
+
+
+
+
+
+
 
 /* Some manual overrides when user computer is dark mode */
 @media (prefers-color-scheme: dark) {

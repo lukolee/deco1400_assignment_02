@@ -591,3 +591,28 @@ function enableExit(pattern) {
         window.location.href = `pattern_overview.html?pattern=${pattern}`
     })
 }
+
+
+// ============================================================================
+//
+// Contact Page
+//
+// ============================================================================
+
+// HTML thankfully has an API already for checking email and form validity,
+// allows me to simply tap into it. https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity
+const contact_form = document.getElementById("send-message");
+contact_form.addEventListener('submit', (event) => {
+    event.preventDefault();
+
+    const status = document.getElementById('submit_status');
+
+    if (contact_form.checkValidity()) {
+        status.textContent = "Message Sent!";
+        status.classList.add("form_success");
+    } else {
+        status.textContent = "Message not sent!";
+        status.classList.add("form_failure");
+    }
+
+})
