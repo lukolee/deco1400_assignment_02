@@ -34,6 +34,7 @@ async function loadPatterns() {
 // be using it on those pages where each function is required.
 function handlePatternUsage() {
     patternCategories();
+    handleMobileView();
 
     // not elif because i find this easier to read.
     if (window.location.pathname.endsWith('index.html')) {
@@ -74,6 +75,11 @@ function handlePatternUsage() {
         populateSubSteps(patternKey, patternData, step, countercontext)
         activateHighlightControl(countercontext, patternKey, step);
         enableExit(patternKey);
+        handleMobileCrochetView();
+    }
+
+    if (window.location.pathname.endsWith("contact.html")) {
+        handleContactForm();
     }
 }
 
@@ -130,6 +136,14 @@ function goHome() {
     window.location.href = "index.html";
 }
 
+function handleMobileView() {
+    const hamburger = document.getElementById("hamburger");
+    const navbar = document.getElementById("navbar");
+    hamburger.addEventListener('click', () => {
+        navbar.classList.toggle("mobile_menu_main");
+        console.log("hi")
+    });
+}
 
 // ============================================================================
 //
@@ -584,35 +598,55 @@ function refreshHighlight(upTo) {
 
 /**
 * Enable the exit button on the crochet mode page.
+* make the navbar visible again
 */
 function enableExit(pattern) {
     const exit_button = document.getElementById("crochet_mode_exit");
+    const navbar = document.getElementById("navbar");
+
     exit_button.addEventListener('click', () => {
         window.location.href = `pattern_overview.html?pattern=${pattern}`
+        navbar.classList.remove("nav_hidden");
     })
 }
 
-
+function handleMobileCrochetView() {
+    // want to be able to get screen size from JS
+    // MDN had a useful document for this:
+    // https://developer.mozilla.org/en-US/docs/Web/API/Screen/width
+    const screenWidth = window.screen.width;
+    const navbar = document.getElementById("navbar");
+    if (screenWidth < 520) {
+        navbar.classList.add("nav_hidden");
+    }
+}
 // ============================================================================
 //
 // Contact Page
 //
 // ============================================================================
 
-// HTML thankfully has an API already for checking email and form validity,
-// allows me to simply tap into it. https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity
-const contact_form = document.getElementById("send-message");
-contact_form.addEventListener('submit', (event) => {
-    event.preventDefault();
+/**
+* Handle the event listener for submitting a contact form,
+* deals with the validation message and preventing default.
+*
+* HTML thankfully has an API already for checking email and form validity,
+* allows me to simply tap into it.
+* https://developer.mozilla.org/en-US/docs/Web/API/HTMLSelectElement/checkValidity
+*/
+function handleContactForm() {
+    const contact_form = document.getElementById("send-message");
+    contact_form.addEventListener('submit', (event) => {
+        event.preventDefault();
 
-    const status = document.getElementById('submit_status');
+        const status = document.getElementById('submit_status');
 
-    if (contact_form.checkValidity()) {
-        status.textContent = "Message Sent!";
-        status.classList.add("form_success");
-    } else {
-        status.textContent = "Message not sent!";
-        status.classList.add("form_failure");
-    }
-
-})
+        if (contact_form.checkValidity()) {
+            status.textContent = "Message Sent!";
+            status.classList.add("form_success");
+        } else {
+            status.textContent = "Message not sent!";
+            status.classList.add("form_failure");
+        }
+    });
+}

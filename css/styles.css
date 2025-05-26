@@ -87,21 +87,37 @@ table {
 }
 
 
-
 /* ===============================
 ** Navigation Bar
 ** =============================== */
 /* Navigation bar has a blue background,
-** and a height of 100px on every page. */
+** and a height of 100px on every page.
+** Small margin at the end, so the buttons look evenly placed.
+** slight transition for mobile menu transition. */
 #navbar {
     margin: 0;
     min-height: 100px;
     height: 100px;
+    margin-inline-end: 20px;
 
     display: flex;
+    justify-content: space-between;
     align-items: center;
 
     background: var(--secondary-color-light);
+    transition: 150ms ease-in-out;
+}
+
+/* The image and search bar stay same mostly,
+** even in mobile view.
+** Contains image, so 100% height of the nav,
+** and flex position elements centered with small gap. */
+.nav_static {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    align-items: center;
+    height: 100%;
 }
 
 /* The parent of the site logo.
@@ -113,6 +129,7 @@ table {
     align-items: center;
 }
 
+/* As this acts as a link, a pointer on hover is appropriate. */
 #site_nav_logo:hover {
     cursor: pointer;
 }
@@ -128,17 +145,6 @@ table {
     object-fit: cover;
 }
 
-ul#navlist {
-    padding: 0 25px;
-    margin: 0;
-    width: 100%;
-
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    overflow: hidden;
-}
-
 /* Button taking you to my yarn. Has a small icon aligned with the text */
 #my_yarn_button {
     display: flex;
@@ -152,7 +158,7 @@ ul#navlist {
 }
 
 /* Styling for the search bar in the navbar */
-#navlist form input {
+#navbar form input {
     height: 20px;
     font-size: var(--font-regular);
     padding: 10px 8px;
@@ -165,6 +171,112 @@ ul#navlist {
     outline: none;
 }
 
+/* parent of hamburger bars. Give them a little gap and make them
+* stacked on top of each other. */
+.hamburger {
+    display: none !important;
+    content: "aa";
+    width: 60px;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+}
+
+/* give the patties a before state for a transition.
+** quick 200ms ease transition.
+** Good balance between speed and seeing the bars move. */
+.hamburger_patty {
+    transform: rotate(0deg) translateX(0) translateY(0);
+    transition: 150ms ease-in-out;
+    transition-delay: 50ms;
+}
+
+/* Create each hamburger bar, they should be 25px long,
+* slight corner rounding and black.*/
+.hamburger_patty:before {
+    display: block;
+    content: "";
+    width: 27px;
+    height: 2.5px;
+    background: var(--grey);
+    border-radius: 1px;
+}
+
+/* In mobile change the view to columns,
+** so the content should be aligned to the left (start),
+** and position on top of everything. */
+.mobile_menu_main {
+    z-index: 100;
+    flex-direction: column !important;
+    align-items: start !important;
+
+    /* padding bottom so the secnd bar (buttons)
+   ** with height of 20px padding top/bottom,
+  ** and button height of 20px + 2*12px padding
+ ** is total  84px */
+    margin-block-end: 84px !important;
+
+    transition: 150ms ease-in-out;
+}
+
+/* Re-enforce the height of the searchbar and image parent. */
+.mobile_menu_main .nav_static {
+    height: 100px;
+}
+
+/* Hide and disable the search form.
+** slight transition, opacity excepted*/
+.mobile_menu_main #search_form {
+    visibility: hidden;
+    opacity: 0;
+    pointer-events: none;
+    transition-property: opacity;
+    transition-delay: 100ms;
+    transition: 100ms ease-in-out;
+}
+
+/* make the form visible, when the hamburger menu is not
+** activated */
+#search_form {
+    visibility: visible;
+    opacity: 1;
+    pointer-events: auto;
+    transition-property: opacity;
+    transition-delay: 100ms;
+    transition: 100ms ease-in-out;
+}
+
+/* Make the searchbar a comfortable size for a mobile view. */
+#search_form input {
+    width: 85%;
+}
+
+/* The section with the buttons in the nav,
+** dissapears from normal view in mobile view.
+** position on top.
+** Control opacity when hidden - unseen. */
+.mobile_menu_main .site_control_bar {
+    height: fit-content;
+    visibility: visible !important;
+    pointer-events: auto;
+    width: 100%;
+    background: red;
+    padding: 20px;
+    margin: 0;
+    z-index: 100;
+    opacity: 1;
+    transition-property: opacity;
+    transition-delay: 100ms;
+    transition: 100ms ease-in-out;
+}
+
+/* Hidden navbar is a thing used by crochet mode, upon exit this is disabled */
+.nav_hidden {
+    display: none !important;
+}
 
 /* ===============================
 ** Page Footer
@@ -735,7 +847,7 @@ button#crochet_mode_button {
 /* style valid form outline (normal) */
 .contact input:valid,
 .contact textarea:valid {
-    outline: 1.5pt solid var(--light-grey);
+    border: 1.5pt solid var(--light-grey);
 }
 
 /* Style the invalid form outline
@@ -771,19 +883,13 @@ button#crochet_mode_button {
 
 /* make the submit_status span (next to button) green on success */
 .form_success {
-    color: greenyellow
+    color: seagreen;
 }
 
 /* make form submit status text red if theres an issue */
 .form_failure {
     color: darkred
 }
-
-
-
-
-
-
 
 
 
@@ -813,5 +919,253 @@ button#crochet_mode_button {
     * looks weird when coming from white.; */
     #footer_navigation li a:hover {
         color: var(--light1)
+    }
+}
+
+/* ============================================================================
+//
+// Responsive Code
+//
+// ==========================================================================*/
+
+/* Mobile */
+@media (max-width: 520px) {
+
+    /* Make the page have minimal padding on either side,
+   * for all mains */
+    main {
+        padding-inline: 50px;
+    }
+
+    /* except on crochet mode, where it can be a bit smaller */
+    .crochet_page {
+        padding-inline: 90px;
+    }
+
+    /* replace the site logo with the version without text.
+   * css inject image to replace.
+   * hide original image*/
+    #site_nav_logo img {
+        content: "";
+        visibility: hidden;
+    }
+
+    /* prepare the container for the image */
+    #site_nav_logo {
+        width: 100px;
+    }
+
+    /* Replace the image by inserting into pseudo and positioning correctly. */
+    #site_nav_logo:before {
+        content: "";
+        width: 65px;
+        height: 65px;
+        background-image: url("/images/crochetcache_logogram.png");
+        background-size: cover;
+        background-position: center;
+        visibility: visible;
+
+        position: relative;
+        /* container width - image width / 2 for equal inline positioning */
+        left: calc((100px - 65px)/2);
+    }
+
+    /* pattern cards on index should align to the middle */
+    .pattern_card_parent {
+        justify-content: center;
+    }
+
+    /* Pattern cards take up whole horizontal space, and increased height */
+    .pattern_card {
+        width: 100%;
+        height: 400px;
+    }
+
+    /* Increase the card image height to account for changed width x height */
+    .pattern_card img {
+        min-height: 275px;
+    }
+
+
+    /* Overview page display image gallery and details as rows, not columns */
+    #pattern_overview {
+        flex-direction: column;
+    }
+
+    /* hide the back button, as swiping back is widely supported in browsers now. */
+    #pattern_overview_back {
+        display: none;
+    }
+
+    /* crochet view */
+    /* make teh rounds and their images show as rows, not columsn,
+   * requires more scrolling but is minimal-x width compatible. */
+    .substep_content {
+        flex-direction: column;
+    }
+
+    /* as images are width of the whole view, align left */
+    .substep_images {
+        justify-content: flex-start;
+    }
+
+    /* make the crochet mode substep images maximally take width of the main,
+   * and change height-width relationship.  */
+    .substep_images img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* position highlight controls in the side padding */
+    .highlight_controls {
+        left: 5px;
+    }
+
+    /* Hide the pattern category labels in mobile */
+    #pattern_category_labels {
+        display: none;
+    }
+
+    /* Enable the hamburger menu */
+    .hamburger {
+        display: flex !important;
+        position: absolute;
+        right: 20px;
+        top: 20px;
+    }
+
+    /* Hide the middle patty */
+    .hamburger .hamburger_patty:nth-child(2) {
+        display: none !important;
+    }
+
+    /* rotate the top patty to 45deg and position in the middle */
+    .mobile_menu_main .hamburger .hamburger_patty:nth-child(1) {
+        transform: rotate(45deg) translateX(2px) translateY(2px);
+    }
+
+    /* rotate the bottom patty to -45deg and position in the middle */
+    .mobile_menu_main .hamburger .hamburger_patty:nth-child(3) {
+        transform: rotate(-45deg) translateX(2px) translateY(-2px);
+    }
+
+    /* Normally hide the buttons in mobile mode, unless in the menu
+    ** This MDN doc provided some inside into how to block cursor events,
+    ** on an invisible object:
+    * https://developer.mozilla.org/en-US/docs/Web/CSS/pointer-events
+     */
+    .site_control_bar {
+        visibility: hidden !important;
+        pointer-events: none;
+        height: 0px;
+        width: 0;
+        opacity: 0;
+        trnasition-property: height;
+        transition: 0ms ease-in-out;
+    }
+
+    /* Make the crochet mode navbar have less side padding */
+    #crochet_mode_nav {
+        padding-inline: 20px;
+    }
+
+    /* Hide the exit button text, and the space */
+    #crochet_mode_exit button span:nth-child(2),
+    #crochet_mode_exit button span:nth-child(3) {
+        display: none;
+    }
+
+    /* Hide the pattern overall title */
+    #crochet_step_pattern_title {
+        display: none;
+    }
+
+    /* left align the step title. ensure all text is shown */
+    #crochet_step_title {
+        text-align: left;
+        width: fit-content;
+    }
+
+    /* Position the step navigation to the right of the
+    ** screen, positioned absolutely so it can float there.
+    ** top position of menu bar + 20px*/
+    #crochet_step_navigation {
+        position: absolute;
+        right: 20px;
+        top: 95px;
+        flex-direction: column;
+        max-width: 50px;
+    }
+
+    /* inset a label for step nav before */
+    #crochet_step_navigation:before {
+        content: "Steps";
+        text-align: center;
+        line-break: auto;
+        display: block;
+    }
+
+    /* Hide the "back" text */
+    #crochet_step_back span:nth-child(2) {
+        display: none;
+    }
+
+    /* hide the "next" text */
+    #crochet_step_forward span:nth-child(1) {
+        display: none;
+    }
+
+    /* align the highlight controls with the step controls vertically
+    ** that is, 75px of nav + 20px padding */
+    .highlight_controls {
+        top: 95px;
+    }
+
+}
+
+/* tablet mode */
+@media (min-width: 521px) and (max-width: 1000px) {
+
+    /* page side padding to be a bit smaller */
+    main {
+        padding-inline: 150px
+    }
+
+    /* Overview page display image gallery and details as rows, not columns */
+    #pattern_overview {
+        flex-direction: column;
+    }
+
+    /* crochet view */
+    /* make teh rounds and their images show as rows, not columsn,
+   * requires more scrolling but is minimal-x width compatible. */
+    .substep_content {
+        flex-direction: column;
+    }
+
+    /* position the back button on patterns and highlight control to a
+    convenient place */
+    #pattern_overview_back,
+    .highlight_controls {
+        left: 30px;
+    }
+
+    /* images in crochet view are below alread instructions,
+   * but should be left aligned */
+    .substep_images {
+        justify-content: flex-start;
+    }
+}
+
+
+@media (min-width: 1600px) {
+
+    /* On big screens use percentage, so the content stays more in the middle. */
+    main {
+        padding-inline: 20%;
+    }
+
+    .crochet_page {
+        padding-inline: 35% !important;
     }
 }

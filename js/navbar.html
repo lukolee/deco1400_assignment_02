@@ -1,27 +1,28 @@
 <!-- This is not a full HTML document with correct tags etc., as it is a snipped being loaded into a <nav> tag on each page. -->
-<div id="site_nav_logo" onclick="goHome()">
-    <img src="../images/crochetcache_logogram_text.png" alt="">
+<div class="nav_static">
+    <div id="site_nav_logo" onclick="goHome()">
+        <img src="../images/crochetcache_logogram_text.png" alt="">
+    </div>
+    <form action="" id="search_form">
+        <input
+            type="text"
+            placeholder="Search..."
+        >
+    </form>
 </div>
-
-<ul id="navlist" class="horizontal_list">
+<ul class="horizontal_list site_control_bar">
     <li>
-        <form action="">
-            <input
-                type="text"
-                placeholder="Search..."
-            >
-        </form>
-
+        <a href="" class="button_look">What Can I Crochet?</a>
     </li>
-    <ul class="horizontal_list">
-        <li>
-            <a href="" class="button_look">What Can I Crochet?</a>
-        </li>
-        <li>
-            <a href="my_yarn.html" class="button_look" id="my_yarn_button">
-                <img src="/images/crochetcache_logogram.png" alt="">
-                <span>My Yarn</span>
-            </a>
-        </li>
-    </ul>
+    <li>
+        <a href="my_yarn.html" class="button_look" id="my_yarn_button">
+            <img src="/images/crochetcache_logogram.png" alt="">
+            <span>My Yarn</span>
+        </a>
+    </li>
 </ul>
+<buton class="button_look hamburger" id="hamburger">
+    <i class="hamburger_patty"></i>
+    <i class="hamburger_patty"></i>
+    <i class="hamburger_patty"></i>
+</buton>
