@@ -82,6 +82,14 @@ function handlePatternUsage() {
     if (window.location.pathname.endsWith("contact.html")) {
         handleContactForm();
     }
+
+    if (window.location.pathname.endsWith("add_yarn.html")) {
+        handleAddYarnForm();
+    }
+
+    if (window.location.pathname.endsWith("add_pattern.html")) {
+        handleAddPattern();
+    }
 }
 
 /**
@@ -137,6 +145,10 @@ function goHome() {
     window.location.href = "index.html";
 }
 
+/**
+* Ensure that the mobile_menu_main class is toggled on the navbar when the
+* hamburger is clicked
+*/
 function handleMobileView() {
     const hamburger = document.getElementById("hamburger");
     const navbar = document.getElementById("navbar");
@@ -144,6 +156,18 @@ function handleMobileView() {
         navbar.classList.toggle("mobile_menu_main");
         console.log("hi")
     });
+}
+
+/**
+* Disable default behaviour, and send back to the previous page the user was on.
+*/
+function handleAddPattern() {
+    const add_pattern_form = document.getElementById("add_yarn_form");
+    add_pattern_form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        history.back();
+        alert("Pattern Added!");
+    })
 }
 
 // ============================================================================
@@ -611,13 +635,17 @@ function enableExit(pattern) {
     })
 }
 
+/**
+* Hide the navigation bar when teh screen is below 750px,
+* this value was arrived at through visual testing.
+*/
 function handleMobileCrochetView() {
     // want to be able to get screen size from JS
     // MDN had a useful document for this:
     // https://developer.mozilla.org/en-US/docs/Web/API/Screen/width
     const screenWidth = window.screen.width;
     const navbar = document.getElementById("navbar");
-    if (screenWidth < 520) {
+    if (screenWidth < 750) {
         navbar.classList.add("nav_hidden");
     }
 }
@@ -684,6 +712,7 @@ async function loadYarn() {
 function handleYarnUsage() {
     if (window.location.pathname.endsWith('yarn_catalogue.html')) {
         populateYarnTable();
+        handleAddYarn();
     }
 }
 
@@ -761,4 +790,29 @@ function populateYarnTable() {
 function removeYarn(key) {
     const object = document.getElementById(key + "_row");
     object.remove(object);
+}
+
+/**
+* Add an event listener to the add yarn button and link to the correct page.
+*/
+function handleAddYarn() {
+    const add_button = document.getElementById("add_yarn_button");
+    add_button.addEventListener('click', () => {
+        window.location.href = "add_yarn.html";
+    });
+}
+
+/**
+* Disable default behaviour, and take users back to the main page,
+* that they came from.
+*/
+function handleAddYarnForm() {
+    const form = document.getElementById("add_yarn_form");
+
+    form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        alert("Yarn Added!")
+        window.location.href = "yarn_catalogue.html?form=success"
+    });
+
 }

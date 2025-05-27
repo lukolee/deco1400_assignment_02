@@ -67,11 +67,16 @@
     }
 }
 
+/* Hide overflow so no side scrolling on mobile.
+** change the background so when rubber banding there isnt suddenly white.
+** use system UI font - these usually have more weights avaialbe.
+** padding and margin to be controlled by main and child elements. */
 body {
     padding: 0;
     margin: 0;
     background: var(--secondary-color-light);
     font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    overflow-x: hidden;
 }
 
 /* Text elements always have black text */
@@ -909,6 +914,7 @@ button#crochet_mode_button {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    gap: 20px;
 }
 
 /* Make the my yarn page buttons grey and remove the normal button border */
@@ -924,7 +930,6 @@ button#crochet_mode_button {
     width: 100%;
     table-layout: fixed;
     border-collapse: collapse;
-
 }
 
 /* Give the cells a little padding and a border,
@@ -941,15 +946,86 @@ button#crochet_mode_button {
     padding: 0 !important;
 }
 
-/* Give yarn images max size, dimensions etc. */
+/* Give yarn images max size, dimensions etc.
+* pos top so if zoomed, you can see the yarn still, not label*/
 .yarn_preview_image {
     width: 150px;
     height: 90px;
     object-fit: cover;
-    object-position: center;
+    object-position: top;
 }
 
-.remove_yarn_button {}
+/* ===============================
+** Yarn Catalogue Page
+** =============================== */
+/* Give the form a bit of a background,
+** and more pleasing styling,
+** like, columns and a bit of margin. */
+.add_yarn_section {
+    background: var(--white);
+    padding: 30px;
+    border-radius: var(--corner-rounding);
+
+}
+
+/* Remove top padding on H1 so the section padding is correct on top. */
+.add_yarn_section h1 {
+    margin-block-start: 0;
+}
+
+
+/* Style the form so its inputs are in a column, with a gap between each one. */
+#add_yarn_form {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    gap: 20px;
+}
+
+/* make the quantity input and submit button
+* shorter than the other form_inputs */
+.yarn_quantity,
+.add_yarn_submit {
+    width: 100px;
+}
+
+/* Pattern overview to
+** prompt user to enter a paragraph */
+#pattern_overview {
+    min-height: 100px;
+    resize: none;
+}
+
+/* Group these elements to be next to one another,
+** not space-between */
+.section_together {
+    justify-content: start;
+}
+
+/* These inputs have a reduced width */
+.small_input {
+    width: 225px;
+}
+
+/* The section of the form for the steps
+** children have padding between each other
+** give slight outline, and padding to distinguish. */
+.pattern_steps {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border: 1.5pt solid var(--light-grey);
+    border-radius: var(--corner-rounding);
+    padding: 20px;
+}
+
+/* Disable resizing on instructions, make a bit taller. */
+#step_instructions {
+    min-height: 100px;
+    resize: none;
+}
+
+
 
 
 /* Some manual overrides when user computer is dark mode */
@@ -988,7 +1064,7 @@ button#crochet_mode_button {
 // ==========================================================================*/
 
 /* Mobile */
-@media (max-width: 520px) {
+@media (max-width: 800px) {
 
     /* Make the page have minimal padding on either side,
    * for all mains */
@@ -1148,12 +1224,18 @@ button#crochet_mode_button {
     /* Position the step navigation to the right of the
     ** screen, positioned absolutely so it can float there.
     ** top position of menu bar + 20px*/
-    #crochet_step_navigation {
+    #crochet_step_navigation,
+    .highlight_controls {
         position: absolute;
         right: 20px;
         top: 95px;
         flex-direction: column;
         max-width: 50px;
+    }
+
+    /* mirror the step navigation positioning, but on the left of the page */
+    .highlight_controls {
+        left: 20px;
     }
 
     /* inset a label for step nav before */
@@ -1175,15 +1257,35 @@ button#crochet_mode_button {
     }
 
     /* align the highlight controls with the step controls vertically
-    ** that is, 75px of nav + 20px padding */
+        ** that is, 75px of nav + 20px padding */
     .highlight_controls {
         top: 95px;
     }
 
+    /* allow the table to overflow, in the x axis (visually hidden by body)
+    ** but users will be able to side scroll on this.
+    ** Dont want the text to be wrapping */
+    .yarn_catalogue table {
+        display: block;
+        overflow-x: auto;
+        text-wrap: nowrap;
+    }
+
+    /* Form inputs to not be 500px, rather auto size to the container */
+    .form_input {
+        width: auto;
+    }
+
+    /* In forms, where elements should be next to each other,
+        ** should now be beneath, and align to the left. */
+    .section_together {
+        flex-direction: column;
+        align-items: start
+    }
 }
 
 /* tablet mode */
-@media (min-width: 521px) and (max-width: 1000px) {
+@media (min-width: 800px) and (max-width: 1100px) {
 
     /* page side padding to be a bit smaller */
     main {
@@ -1213,6 +1315,18 @@ button#crochet_mode_button {
    * but should be left aligned */
     .substep_images {
         justify-content: flex-start;
+    }
+
+    /* Form inputs to not be 500px, rather auto size to the container */
+    .form_input {
+        width: auto;
+    }
+
+    /* In forms, where elements should be next to each other,
+    ** should now be beneath, and align to the left. */
+    .section_together {
+        flex-direction: column;
+        align-items: start
     }
 }
 

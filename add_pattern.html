@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/styles.css">
+            <!-- Defer - wait for the page to load -->
+        <script src="./js/script.js" defer></script>
+        <title>Crochet Cache</title>
+    </head>
+    <body>
+        <nav id="navbar"></nav>
+        <main class="yarn_catalogue">
+            <section class="add_yarn_section">
+                <h1>Add Pattern</h1>
+                <form id="add_yarn_form">
+                    <input
+                        required
+                        type="text"
+                        class="form_input"
+                        placeholder="Name..."
+                    >
+                    <textarea
+                        required
+                        name="pattern_overview"
+                        id="pattern_overview"
+                        placeholder="Overview..."
+                        class="form_input"
+                    ></textarea>
+                    <section>
+                        <h2>
+                            Materials
+                        </h2>
+                        <div class="section_inline section_together">
+                            <input
+                                type="text"
+                                placeholder="Title"
+                                class="form_input small_input">
+                            <input
+                                type="text"
+                                placeholder="..."
+                                class="form_input small_input">
+                        </div>
+                    </section>
+                    <section>
+                        <h2>Images</h2>
+                        <input type="file" placeholder="Images" value="Images">
+                    </section>
+                    <section class="pattern_steps">
+                        <h2>Steps</h2>
+                        <input
+                            required
+                            type="text"
+                            class="form_input"
+                            placeholder="Title">
+                        <textarea
+                            required
+                            name="step_instructions"
+                            id="step_instructions"
+                            class="form_input"
+                            placeholder="Instructions..."
+                        ></textarea>
+                        <input
+                            type="file"
+                            placeholder="Images"
+                        >
+                    </section>
+
+                    <button
+                        class="button_look add_yarn_submit"
+                        type="submit"
+                    >
+                        Add
+                    </button>
+                </form>
+            </section>
+        </main>
+        <footer id="footer"></footer>
+    </body>
+</html>

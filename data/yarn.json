@@ -25,5 +25,23 @@
         "weight": "8/4",
         "material": "Wool",
         "quantity": 5
+    },
+    "finch-white": {
+        "name": "Swann White",
+        "preview": "/images/finch_white.png",
+        "color": "#f5f4ed",
+        "colour_name": "Off White",
+        "weight": "6/4",
+        "material": "Cotton",
+        "quantity": 1
+    },
+    "finch-blue": {
+        "name": "Blue Jeans",
+        "preview": "/images/finch_blue.png",
+        "color": "#508ab3",
+        "colour_name": "Jeans Blue",
+        "weight": "6/4",
+        "material": "Cotton",
+        "quantity": 1
     }
 }

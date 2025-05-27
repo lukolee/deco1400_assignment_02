@@ -1,0 +1,42 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/styles.css">
+            <!-- Defer - wait for the page to load -->
+        <script src="./js/script.js" defer></script>
+        <title>Crochet Cache</title>
+    </head>
+    <body>
+        <nav id="navbar"></nav>
+        <main class="yarn_catalogue">
+            <section class="add_yarn_section">
+                <h1>Add Yarn</h1>
+                <form id="add_yarn_form">
+                    <input required class="form_input" type="text" placeholder="Name...">
+                    <input  class="form_input" type="text" placeholder="Colour...">
+                    <input  class="form_input" type="text" placeholder="Colour Hex...">
+                    <input  class="form_input" type="text" placeholder="Weight...">
+                    <select required class="form_input" name="Material" id="materia_select">
+                        <option value="Cotton">Cotton</option>
+                        <option value="Wool">Wool</option>
+                        <option value="Acrylic">Acrylic</option>
+                        <option value="Wool Blend">Wool Blend</option>
+                        <option value="Cotton Blend">Cotton Blend</option>
+                    </select>
+                    <input required class="form_input yarn_quantity" type="number" placeholder="Quantity...">
+                    <input required type="file" placeholder="Upload Images">
+                    <button
+                        class="button_look add_yarn_submit"
+                        type="submit"
+                    >
+                        Add
+                    </button>
+                </form>
+            </section>
+        </main>
+        <footer id="footer"></footer>
+    </body>
+</html>
