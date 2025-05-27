@@ -1,0 +1,46 @@
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./css/styles.css">
+            <!-- Defer - wait for the page to load -->
+        <script src="./js/script.js" defer></script>
+        <title>Crochet Cache</title>
+    </head>
+    <body>
+        <nav id="navbar"></nav>
+        <main class="yarn_catalogue">
+            <section>
+                <div class="section_inline">
+                    <h1>My Yarn</h1>
+                    <div class="yarn_buttons">
+                        <button class="button_look">
+                            Filter
+                        </button>
+                        <button class="button_look">
+                            Add Yarn
+                        </button>
+                    </div>
+                </div>
+                <table>
+                    <thead>
+                        <th>Preview</th>
+                        <th>Colour Block</th>
+                        <th>Colour</th>
+                        <th>Name</th>
+                        <th>Weight</th>
+                        <th>Material</th>
+                        <th>Quantity</th>
+                        <th>Remove</th>
+                    </thead>
+                    <tbody id="yarn_tbody">
+                        <!-- Populated with JS -->
+                    </tbody>
+                </table>
+            </section>
+        </main>
+        <footer id="footer"></footer>
+    </body>
+</html>

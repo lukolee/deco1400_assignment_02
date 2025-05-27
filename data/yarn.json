@@ -1,0 +1,29 @@
+{
+    "ninja-green": {
+        "name": "Green Ninja Cotton Yarn",
+        "preview": "/images/ninja_green.png",
+        "color": "#4c803d",
+        "colour_name": "Dark Green",
+        "weight": "4/4",
+        "material": "Cotton",
+        "quantity": 3
+    },
+    "ninja-ornge": {
+        "name": "Orange Ninja Cotton Yarn",
+        "preview": "/images/ninja_orange.png",
+        "color": "#f7902f",
+        "colour_name": "Orange",
+        "weight": "4/4",
+        "material": "Cotton",
+        "quantity": 5
+    },
+    "woolen-tundra": {
+        "name": "Tundra Softness",
+        "preview": "/images/tundra_brown.png",
+        "color": "#7a5a3c",
+        "colour_name": "Dark Brown",
+        "weight": "8/4",
+        "material": "Wool",
+        "quantity": 5
+    }
+}

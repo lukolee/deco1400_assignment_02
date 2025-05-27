@@ -2,6 +2,7 @@
 window.addEventListener('DOMContentLoaded', () => {
     loadLayout();
     loadPatterns();
+    loadYarn();
 });
 
 // Null till the promise has been fullfilled
@@ -649,4 +650,115 @@ function handleContactForm() {
             status.classList.add("form_failure");
         }
     });
+}
+
+// ============================================================================
+//
+// Yarn Catalogue Page
+//
+// ============================================================================
+
+let yarnData = null;
+/**
+* Load in the yarn data from a json file.
+* Store data in the yarnData array
+*/
+async function loadYarn() {
+    try {
+        const result = await fetch('/data/yarn.json');
+        const yarnJSON = await result.json();
+
+        yarnData = yarnJSON;
+
+        // pattern data is loaded, use it
+        handleYarnUsage();
+    } catch (error) {
+        console.error(error);
+    }
+}
+
+/**
+* Make sure on the yarn catalogue page.
+* Then delegate what to do with the data.
+*/
+function handleYarnUsage() {
+    if (window.location.pathname.endsWith('yarn_catalogue.html')) {
+        populateYarnTable();
+    }
+}
+
+/**
+* Populate the table on the yarn catalogue page with the data from the
+* yarn JSON file.
+*/
+function populateYarnTable() {
+    const table_body = document.getElementById("yarn_tbody");
+
+    console.log("yarnd ata")
+    Object.entries(yarnData).forEach((yarnObj) => {
+        console.log(yarnObj[0])
+
+        const yarnKey = yarnObj[0];
+        const yarnData = yarnObj[1];
+
+        const row = document.createElement("tr");
+        row.id = yarnKey + "_row"
+
+        const yarn_preview = document.createElement('img');
+        yarn_preview.src = yarnData["preview"];
+        yarn_preview.classList.add("yarn_preview_image")
+        yarn_preview.alt = "Photo of " + yarnData["name"];
+
+        // make a td for each eleement, and delegate
+        const image = document.createElement('td');
+        image.id = yarnKey + "_image";
+        image.classList.add("image_cell");
+        image.appendChild(yarn_preview);
+
+        const colour_block = document.createElement('td');
+        colour_block.id = yarnKey + "_colourblock";
+        colour_block.style.backgroundColor = yarnData["color"];
+        colour_block.classList.add("yarn_colour_block");
+
+        const colour_name = document.createElement('td');
+        colour_name.textContent = yarnData["colour_name"];
+
+        const name = document.createElement('td');
+        name.textContent = yarnData["name"];
+
+        const weight = document.createElement('td');
+        weight.textContent = yarnData["weight"];
+
+        const material = document.createElement('td');
+        material.textContent = yarnData["material"];
+
+        const quantity = document.createElement('td');
+        quantity.textContent = yarnData["quantity"];
+
+        const remove_button = document.createElement("button");
+        remove_button.classList.add("button_look", "remove_yarn_button");
+        remove_button.textContent = "Delete"
+        // do not run immediately, run function to run
+        remove_button.onclick = () => {
+            row.remove();
+        };
+
+        const remove = document.createElement('td');
+        remove.appendChild(remove_button);
+
+        row.append(image, colour_block, colour_name, name, weight, material, quantity, remove);
+
+        table_body.appendChild(row);
+    })
+}
+
+
+/**
+* Remove a row from the yarn catalogue table,
+* Code also to remove it from the file if need be.
+* @param {*} key The key of the yarn element to remove
+*/
+function removeYarn(key) {
+    const object = document.getElementById(key + "_row");
+    object.remove(object);
 }

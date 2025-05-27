@@ -257,13 +257,14 @@ table {
 /* The section with the buttons in the nav,
 ** dissapears from normal view in mobile view.
 ** position on top.
-** Control opacity when hidden - unseen. */
+** Control opacity when hidden - unseen.
+** shadow at top to sep from navbar. very light inset. */
 .mobile_menu_main .site_control_bar {
     height: fit-content;
     visibility: visible !important;
     pointer-events: auto;
     width: 100%;
-    background: red;
+    background: var(--secondary-color-light);
     padding: 20px;
     margin: 0;
     z-index: 100;
@@ -271,6 +272,7 @@ table {
     transition-property: opacity;
     transition-delay: 100ms;
     transition: 100ms ease-in-out;
+    box-shadow: 0 6px 16px -10px rgba(0, 0, 0, 0.1) inset
 }
 
 /* Hidden navbar is a thing used by crochet mode, upon exit this is disabled */
@@ -891,6 +893,63 @@ button#crochet_mode_button {
     color: darkred
 }
 
+
+/* ===============================
+** Yarn Catalogue Page
+** =============================== */
+
+/* Give the yarn page a little padding on top */
+.yarn_catalogue {
+    padding-block-start: 50px;
+}
+
+/* Make the my yarn title and the buttons inline. */
+.section_inline {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
+/* Make the my yarn page buttons grey and remove the normal button border */
+.yarn_buttons button {
+    background: var(--light-grey);
+    border: 0pt;
+}
+
+/* Make columns equal fixed size, allow table to take whole x width.
+** Collapse borders together so cells have no spacing between. */
+.yarn_catalogue table {
+    text-align: left;
+    width: 100%;
+    table-layout: fixed;
+    border-collapse: collapse;
+
+}
+
+/* Give the cells a little padding and a border,
+* hide any overflow - like image potentially*/
+.yarn_catalogue table th,
+.yarn_catalogue table td {
+    padding: 5px;
+    border: 1pt solid black;
+    overflow: hidden;
+}
+
+/* Make it so the image can take up a whole image cell */
+.image_cell {
+    padding: 0 !important;
+}
+
+/* Give yarn images max size, dimensions etc. */
+.yarn_preview_image {
+    width: 150px;
+    height: 90px;
+    object-fit: cover;
+    object-position: center;
+}
+
+.remove_yarn_button {}
 
 
 /* Some manual overrides when user computer is dark mode */
