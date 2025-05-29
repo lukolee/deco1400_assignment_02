@@ -37,6 +37,7 @@ function handlePatternUsage() {
     patternCategories();
     handleMobileView();
     enableSearch();
+    searchHandler();
 
 
     // not elif because i find this easier to read.
@@ -253,30 +254,46 @@ function navigateToPattern(location) {
 }
 
 /**
-* Searches are handled on the index page, so redirect there if not there,
-* and display the search results.
+* Handle taking the search and navigating to that page.
+* delegate functionality to searchHandler(); which checks if there is a search
+* in url
 */
 function enableSearch() {
-    const location = window.location.pathname;
-
     const input = document.getElementById("search_bar");
     const search_form = document.getElementById("search_form");
-    let results = [];
 
     search_form.addEventListener('submit', (event) => {
         event.preventDefault();
         const search_value = input.value;
 
-        // if not on index page, go there with results
-        if (!location.endsWith("index.html")) {
-            window.location.href = "index.html";
-        }
+        window.location.href = `index.html?search=${search_value}`;
+    });
+}
+
+/**
+* This function is there so that upon a search being entered users are taken to
+* the index page with search parameters,
+* if those are detected with this handler, then a search is initiated,
+* and the index page appropriately transformed to reflect this.
+*/
+function searchHandler() {
+    let results = [];
+    // recover url search parameters
+    const search_value = new URLSearchParams(document.location.search).get("search");
+
+    if (search_value) {
+        console.log("search was, ", search_value)
 
         // Remove the normal explore patterns view.
         // only hide if it is there, e.g., search from search
         const pattern_groups = document.getElementById("pattern_groups");
+        const secondary_nav = document.getElementById("pattern_category_labels");
         if (pattern_groups) {
             pattern_groups.style.display = "none";
+        }
+        // hide pattern category labels of index page
+        if (secondary_nav) {
+            secondary_nav.style.display = "none";
         }
 
         // Prepare for the results
@@ -321,17 +338,6 @@ function enableSearch() {
             no_results_header.textContent = "No patterns found...";
             search.prepend(no_results_header, no_result_peudocontent);
         }
-
-    });
-
-    const createSearchesContainer = (search, index_main) => {
-        // crate new list for searches
-        const search_results_parent = document.createElement('div');
-        search_results_parent.id = "search_results";
-        search_results_parent.innerHTML = "<!-- Populated via JS -->";
-        search.appendChild(search_results_parent);
-        index_main.appendChild(search);
-        return search_results_parent;
     }
 }
 
@@ -351,6 +357,8 @@ function obtainSearchResults(query) {
         }
     }
 
+    // Go through all patterns and match their name, overview and categories to
+    // the search term
     Object.entries(patternDataList).forEach((returnArray) => {
         // const key = returnArray[0];
         const patternEntry = returnArray[1];
@@ -366,6 +374,42 @@ function obtainSearchResults(query) {
     });
 
     return results;
+}
+
+/**
+* Creates a container for searches, which may contain the exit button,
+* and also the div which is responsible for holding all the result cards.
+* @param {*} search the overall parent of the search functionality.
+* @param {*} index_main The overarching parent for the idex page
+* @returns A HTML object which is a populated div with searches and exit btn.
+*/
+function createSearchesContainer(search, index_main) {
+    // create search exit button
+    const search_exit = document.createElement("a");
+    search_exit.id = "search_exit_button";
+    search_exit.classList.add("button_look", "button_grey");
+    search_exit.innerHTML = `
+        <span class="button_text_icon">&#10005;</span>
+    `;
+    search_exit.addEventListener('click', (event) => {
+        event.preventDefault(); // dont act as an anchor actually.
+        // upon exit button click, go back, if nothing then go index
+        if (history.length < 1) {
+            window.location.href = "index.html";
+        } else {
+            history.back();
+        }
+    });
+
+    // crate new list for searches
+    const search_results_parent = document.createElement('div');
+    search_results_parent.id = "search_results";
+    search_results_parent.innerHTML = "<!-- Populated via JS -->";
+
+    search.appendChild(search_exit);
+    search.appendChild(search_results_parent);
+    index_main.appendChild(search);
+    return search_results_parent;
 }
 
 // ============================================================================

@@ -609,8 +609,11 @@ button#crochet_mode_button {
     box-shadow: 0 0 5px var(--light-grey);
 }
 
-
-#pattern_overview_back {
+/* Put the search exit button and the pattern overview button
+** on the left of the screen, at the top under the header,
+** and make so that it doesnt move from that position on screen. */
+#pattern_overview_back,
+#search_exit_button {
     position: absolute;
     display: block;
     top: calc(100px + 2rem);
@@ -1151,7 +1154,8 @@ button#crochet_mode_button {
     }
 
     /* hide the back button, as swiping back is widely supported in browsers now. */
-    #pattern_overview_back {
+    #pattern_overview_back,
+    #search_exit_button {
         display: none;
     }
 
@@ -1328,9 +1332,10 @@ button#crochet_mode_button {
     }
 
     /* position the back button on patterns and highlight control to a
-    convenient place */
+    convenient place, also the search exit button on search pages */
     #pattern_overview_back,
-    .highlight_controls {
+    .highlight_controls,
+    #search_exit_button {
         left: 30px;
     }
 
