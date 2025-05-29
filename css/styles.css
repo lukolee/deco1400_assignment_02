@@ -1010,13 +1010,19 @@ button#crochet_mode_button {
 /* The section of the form for the steps
 ** children have padding between each other
 ** give slight outline, and padding to distinguish. */
-.pattern_steps {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
+#pattern_steps {
     border: 1.5pt solid var(--light-grey);
     border-radius: var(--corner-rounding);
     padding: 20px;
+}
+
+/* Make them display as rows in a column with a comfortable amount of space between. */
+#pattern_steps,
+.step_child,
+#materials_parent {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
 }
 
 /* Disable resizing on instructions, make a bit taller. */
@@ -1024,7 +1030,6 @@ button#crochet_mode_button {
     min-height: 100px;
     resize: none;
 }
-
 
 
 

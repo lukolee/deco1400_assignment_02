@@ -89,6 +89,8 @@ function handlePatternUsage() {
 
     if (window.location.pathname.endsWith("add_pattern.html")) {
         handleAddPattern();
+        addStepListener();
+        addMaterialListener();
     }
 }
 
@@ -815,4 +817,70 @@ function handleAddYarnForm() {
         window.location.href = "yarn_catalogue.html?form=success"
     });
 
+}
+
+
+// ============================================================================
+//
+// Add Pattern Page
+//
+// ============================================================================
+
+/**
+* Event listener on button which adds another step section to the add pattern page:
+*/
+function addStepListener() {
+    let index = 2;
+    const add_step = document.getElementById("add_step");
+    const steps_parent = document.getElementById("pattern_steps");
+    add_step.addEventListener('click', () => {
+        step_child = document.createElement("div");
+        step_child.innerHTML = `
+            <h2>Step ${index}</h2>
+            <input
+                required
+                type="text"
+                class="form_input"
+                placeholder="Title">
+            <textarea
+                required
+                name="step_instructions"
+                id="step_instructions"
+                class="form_input"
+                placeholder="Instructions..."
+            ></textarea>
+            <input
+                type="file"
+                placeholder="Images"
+            >
+            `;
+        step_child.classList.add("step_child");
+        steps_parent.appendChild(step_child);
+        index++;
+    })
+}
+
+/**
+* Allow users to append more materials to a new pattern.
+*/
+function addMaterialListener() {
+    const add_materia_button = document.getElementById("add_materia_button");
+    const materials_parent = document.getElementById("materials_parent");
+    add_materia_button.addEventListener('click', () => {
+        material_girl = document.createElement("div");
+        material_girl.innerHTML = `
+            <div class="section_inline section_together">
+                <input
+                    type="text"
+                    placeholder="Title"
+                    class="form_input small_input">
+                <input
+                    type="text"
+                    placeholder="..."
+                    class="form_input small_input">
+            </div>
+            `;
+        material_girl.classList.add("step_child");
+        materials_parent.appendChild(material_girl);
+    })
 }

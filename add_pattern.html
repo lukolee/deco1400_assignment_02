@@ -31,47 +31,65 @@
                         <h2>
                             Materials
                         </h2>
-                        <div class="section_inline section_together">
-                            <input
-                                type="text"
-                                placeholder="Title"
-                                class="form_input small_input">
-                            <input
-                                type="text"
-                                placeholder="..."
-                                class="form_input small_input">
+                        <div id="materials_parent">
+                            <div class="section_inline section_together">
+                                <input
+                                    type="text"
+                                    placeholder="Title"
+                                    class="form_input small_input">
+                                <input
+                                    type="text"
+                                    placeholder="..."
+                                    class="form_input small_input">
+                            </div>
+                        </div>
+                        <div class="section_inline">
+                            <span></span> <!-- blank so that section sends button to end. not used for space-->
+                            <button
+                                id="add_materia_button"
+                                class="button_look button_grey"
+                                type="button"
+                            >
+                                Add Material
+                            </button>
                         </div>
                     </section>
                     <section>
                         <h2>Images</h2>
                         <input type="file" placeholder="Images" value="Images">
                     </section>
-                    <section class="pattern_steps">
-                        <h2>Steps</h2>
-                        <input
-                            required
-                            type="text"
-                            class="form_input"
-                            placeholder="Title">
-                        <textarea
-                            required
-                            name="step_instructions"
-                            id="step_instructions"
-                            class="form_input"
-                            placeholder="Instructions..."
-                        ></textarea>
-                        <input
-                            type="file"
-                            placeholder="Images"
-                        >
+                    <section id="pattern_steps">
+                        <div class="step_child">
+                            <h2>Step 1</h2>
+                            <input
+                                required
+                                type="text"
+                                class="form_input"
+                                placeholder="Title">
+                            <textarea
+                                required
+                                name="step_instructions"
+                                id="step_instructions"
+                                class="form_input"
+                                placeholder="Instructions..."
+                            ></textarea>
+                            <input
+                                type="file"
+                                placeholder="Images"
+                            >
+                        </div>
                     </section>
-
-                    <button
-                        class="button_look add_yarn_submit"
-                        type="submit"
-                    >
-                        Add
-                    </button>
+                    <div class="section_inline">
+                        <button
+                            class="button_look add_yarn_submit"
+                            type="submit"
+                        >
+                            Add
+                        </button>
+                        <button type="button" class="button_look button_grey" id="add_step">
+                            Add Step
+                        </button>
+                    </div>
                 </form>
             </section>
         </main>
