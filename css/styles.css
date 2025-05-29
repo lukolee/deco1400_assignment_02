@@ -480,7 +480,7 @@ ul#pattern_category_labels {
 * It has a short ease-in-out delay for the hover effect. */
 .pattern_card {
     width: 225px;
-    height: 350px;
+    height: auto;
     border: 1pt solid var(--secondary-color);
     overflow: hidden;
     border-radius: var(--corner-rounding);

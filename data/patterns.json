@@ -1,111 +1,162 @@
 {
-    "jacaranda-bloom-coaster": {
-        "name": "Jacaranda Bloom Coaster",
-        "blurb": "A decorative floral coaster",
-        "overview": "A decorative floral coaster which has a cool and long description, bobbin",
+    "cat-bag": {
+        "name": "Cat Pattern Tote Bag",
+        "blurb": "A super strong cotton tote bag with a perfect back intarsia cat graphic on the front.",
+        "overview": "A super strong cotton tote bag with a perfect back intarsia cat graphic on the front. This pattern will take a long time to complete.",
         "category": [
             "Popular Patterns",
-            "Tote Bags"
+            "Tote Bag",
+            "Cat",
+            "Intarsia"
         ],
         "hero-image": {
-            "src": "/images/placeholder.png",
-            "alt": "beautiful blooms"
+            "src": "/images/cat-bag-0.jpeg",
+            "alt": "Two people holding a red and a blue tote bag with cat patterns."
         },
         "images": [
             {
-                "src": "/images/jacaranda.jpg",
-                "alt": "Some jacaranda flowers"
-            },
-            {
-                "src": "/images/bay.png",
-                "alt": "A beautiful image of the River Derwent and stormy bay"
+                "src": "/images/cat-bag-1.jpeg",
+                "alt": "Person holding an orange tote bag with a black cat on it."
             }
         ],
         "pattern_details": {
             "needles": [
-                "4.0 mm (G-6)",
-                "2.5 mm (G-8)"
+                "2.5 mm"
             ],
             "tools": [
-                "Scissors",
-                "Stitching needle",
-                "Pick"
+                "Threading needle",
+                "Scissors"
             ],
             "abbreviations": "US",
             "materials": [
-                "Yarn for stitches",
-                "Polyfill"
+                "Extra yarn"
             ],
-            "complexity": "Medium"
+            "complexity": "Difficult"
         },
         "yarn": [
             {
-                "name": "Yellow panda yarn",
-                "material": "cotton",
-                "quantity_skeins": 1
+                "name": "Dutch Orange Mayflower Yarn",
+                "material": "Mercerised Cotton",
+                "quantity_skeins": 3
             },
             {
-                "name": "Green Ninja Yarn",
-                "material": "cotton",
+                "name": "Natural White Mayflower Yarn",
+                "material": "Mercerised Cotton",
                 "quantity_skeins": 2
+            },
+            {
+                "name": "Black Mayflower Yarn",
+                "material": "Mercerised Cotton",
+                "quantity_skeins": 1
             }
         ],
         "steps": [
             {
-                "title": "Create the Blossom",
+                "title": "Create the cat graphic",
                 "substeps": [
                     {
-                        "title": "Magic Ring",
+                        "title": "Begin the bottom row",
                         "instructions": [
-                            "mc 6",
-                            "slst",
-                            "(sc 3, inc) x 6"
-                        ],
-                        "images": [
-                            {
-                                "src": "/images/jacaranda.jpg",
-                                "alt": "Some jacaranda flowers"
-                            },
-                            {
-                                "src": "/images/bay.png",
-                                "alt": "A beautiful image of the River Derwent and stormy bay"
-                            }
-                        ]
-                    },
-                    {
-                        "title": "Magic Ring",
-                        "instructions": [
-                            "mc 6",
-                            "slst",
-                            "(sc 3, inc) x 6"
+                            "Using the white yarn",
+                            "SC 85 x 16, slst, rotate"
                         ],
                         "images": []
                     },
                     {
-                        "title": "Magic Ring",
+                        "title": "Complete the middle",
                         "instructions": [
-                            "mc 6",
-                            "slst",
-                            "(sc 3, inc) x 6"
+                            "Make 3 spools of white yarn, and 3 of the black",
+                            "SC till the first tail section is there, then switch to black for x stitches, then swithc the white",
+                            "Repeat for each paw"
                         ],
-                        "images": [
-                            {
-                                "src": "/images/jacaranda.jpg",
-                                "alt": "Some jacaranda flowers"
-                            },
-                            {
-                                "src": "/images/bay.png",
-                                "alt": "A beautiful image of the River Derwent and stormy bay"
-                            }
-                        ]
+                        "images": []
                     }
                 ]
             },
             {
+                "title": "Stitch together the sides",
+                "substeps": [
+                    {
+                        "title": "Stitch the sides",
+                        "instructions": [
+                            "Using the needle and extra orange yarn, stitch the two halves of the tote together"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/cat-bag-2.jpeg",
+                                "alt": "One half of an intarsia pattern of a black cat."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "rose-bunch": {
+        "name": "Bunch of Roses",
+        "blurb": "A bouquet of red roses.",
+        "overview": "A beautiful bouquet of red roses, perfect for a meaningful valentines gift or to decorage a room / study.",
+        "category": [
+            "Popular Patterns",
+            "Flowers",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "/images/rose-bunch-0.png",
+            "alt": "Bunch of three red crochet roses held in hand."
+        },
+        "images": [
+            {
+                "src": "/images/rose-bunch-1.jpeg",
+                "alt": "single rose help in hand"
+            },
+            {
+                "src": "/images/rose-bunch-2.png",
+                "alt": "Bunch of roses held in hand"
+            },
+            {
+                "src": "/images/rose-bunch-3.png",
+                "alt": "Crochet rose next to a ruler"
+            },
+            {
+                "src": "/images/rose-bunch-4.jpeg",
+                "alt": "Crochet rose crown, unstitched"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                "2.5mm"
+            ],
+            "tools": [
+                "Threading Needle",
+                "Scissors"
+            ],
+            "abbreviations": "UK",
+            "materials": [
+                "Metal Wire",
+                "Silver Wire",
+                "Extra yarn"
+            ],
+            "complexity": "Medium-Difficult"
+        },
+        "yarn": [
+            {
+                "name": "Red Fuchsia",
+                "material": "Wool",
+                "quantity_skeins": 1
+            },
+            {
+                "name": "Garden Green",
+                "material": "Wool",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
                 "title": "Create the Crown",
                 "substeps": [
                     {
-                        "title": "Non-magic Ring",
+                        "title": "Crochet the Crown",
                         "instructions": [
                             "mc 6",
                             "slst",
@@ -113,12 +164,8 @@
                         ],
                         "images": [
                             {
-                                "src": "/images/jacaranda.jpg",
-                                "alt": "Some jacaranda flowers"
-                            },
-                            {
-                                "src": "/images/bay.png",
-                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                                "src": "/images/rose-bunch-4.jpeg",
+                                "alt": "Crochet rose crown, unstitched"
                             }
                         ]
                     }
@@ -127,69 +174,298 @@
         ]
     },
     "goose-bag": {
-        "name": "Goose Baggey",
-        "overview": "A bag with a goose",
+        "name": "Goose Bag",
+        "blurb": "A goose shaped bag for the goose-pods",
+        "overview": "",
         "category": [
-            "Tote Bags",
             "Popular Patterns",
-            "Amigurumi",
-            "Clothes",
-            "Beginner Pattern"
+            "Tote Bag",
+            "Amigurumi"
         ],
         "hero-image": {
-            "src": "/images/bay.png",
-            "alt": "beautiful hobart bay"
+            "src": "/images/goose-bag-0.png",
+            "alt": "placeholder"
         },
         "images": [
             {
-                "src": "/images/jacaranda.jpg",
-                "alt": "Some jacaranda flowers"
-            },
-            {
-                "src": "/images/rocks.png",
-                "alt": "Some jacaranda flowers"
-            },
-            {
-                "src": "/images/bay.png",
-                "alt": "A beautiful image of the River Derwent and stormy bay"
+                "src": "/images/placeholder.png",
+                "alt": "placeholder"
             }
         ],
         "pattern_details": {
-            "hook_sizes": [
-                "12.0 mm (G-6)",
-                "2.5 mm (G-8)"
+            "needles": [
+                ""
             ],
             "tools": [
-                "Scissors",
-                "Stitching needle",
-                "Pitchfork"
+                ""
             ],
-            "abbreviations": "US",
+            "abbreviations": "",
             "materials": [
-                "Yarn for stitches",
-                "Polyfill"
+                ""
             ],
-            "complexity": "Hard"
+            "complexity": ""
         },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
         "steps": [
             {
-                "title": "The Head",
+                "title": "",
                 "substeps": [
                     {
-                        "title": "Magic Ring",
+                        "title": "",
                         "instructions": [
-                            "mc 12",
+                            "mc 6",
                             "slst",
                             "(sc 3, inc) x 6"
                         ],
                         "images": [
                             {
-                                "src": "/images/bay.png",
-                                "alt": "Beautify Hobart Bay"
-                            },
+                                "src": "/images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "tulip-bunch": {
+        "name": "Bunch of Tulips",
+        "blurb": "Featuring intricate inner petals and stamens.",
+        "overview": "",
+        "category": [
+            "Flowers",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "/images/tulip-bunch-0.png",
+            "alt": "Photo of crochet tulips"
+        },
+        "images": [
+            {
+                "src": "/images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
                             {
-                                "src": "/images/rocks.png",
-                                "alt": "A beautiful image of the River Derwent and stormy bay"
+                                "src": "/images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "goose-pods": {
+        "name": "GOOSEPODS",
+        "blurb": "The perfect home for your airpods",
+        "overview": "",
+        "category": [
+            "Popular Patterns",
+            "Amigurumi",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "/images/goose-pods-0.png",
+            "alt": "Photo of goose pods"
+        },
+        "images": [
+            {
+                "src": "/images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "capy-parent": {
+        "name": "Capybara Parent",
+        "blurb": "Concrete - its name",
+        "overview": "",
+        "category": [
+            "Amigurumi"
+        ],
+        "hero-image": {
+            "src": "/images/capy-parent-0.png",
+            "alt": "Photo of crochet capybara parent"
+        },
+        "images": [
+            {
+                "src": "/images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "capy-baby": {
+        "name": "Capybara Baby",
+        "blurb": "Cement & Concrete",
+        "overview": "",
+        "category": [
+            "Amigurumi"
+        ],
+        "hero-image": {
+            "src": "/images/capy-baby-0.png",
+            "alt": "Photo of crochet capybara parent and baby"
+        },
+        "images": [
+            {
+                "src": "/images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "/images/placeholder.png",
+                                "alt": "Placeholder"
                             }
                         ]
                     }
