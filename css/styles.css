@@ -450,15 +450,21 @@ ul#pattern_category_labels {
     color: var(--grey);
 }
 
-/* Index page sections like, popular and amigurumi out to .card_description
+/* Index page sections like, popular and amigurumi, and search page to
 * have some padding between them. */
-#pattern_groups {
+#pattern_groups,
+#search {
     display: flex;
     flex-direction: column;
     gap: 30px;
 }
 
-.pattern_card_parent {
+/* Styling for the cards in each section on main
+** Appear as rows of cards, separated by 40px, left aligned with wrapping on.
+** As search results appear the same as a cattegory,
+** they too share this style*/
+.pattern_card_parent,
+#search_results {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
@@ -517,6 +523,18 @@ ul#pattern_category_labels {
     padding-top: 2px;
 }
 
+/* normally hidden */
+/* #search_results {
+    display:
+} */
+
+/*  */
+.no_result_pseudocontent {
+    display: block;
+    content: "";
+    height: auto;
+    width: 100%;
+}
 
 
 /* ===============================

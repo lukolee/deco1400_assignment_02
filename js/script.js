@@ -36,6 +36,8 @@ async function loadPatterns() {
 function handlePatternUsage() {
     patternCategories();
     handleMobileView();
+    enableSearch();
+
 
     // not elif because i find this easier to read.
     if (window.location.pathname.endsWith('index.html')) {
@@ -197,7 +199,7 @@ function populateSections() {
         section.id = category;
 
         // create a title for the section
-        const title = document.createElement('h2');
+        const title = document.createElement('h1');
         title.textContent = category;
         section.appendChild(title);
 
@@ -212,6 +214,9 @@ function populateSections() {
 
 /**
 * Populate a section with cards for each pattern matching the category.
+* Create a new card for each element in category_patterns,
+* and append them to the parent container parent as passed by reference.
+* @param {*} category_patterns This ought to be an array containing pattern Objects
 */
 function sectionAddCards(parent, category_patterns) {
     category_patterns.forEach(pattern => {
@@ -245,6 +250,122 @@ function sectionAddCards(parent, category_patterns) {
 
 function navigateToPattern(location) {
     window.location.href = `pattern_overview.html?pattern=${location}`;
+}
+
+/**
+* Searches are handled on the index page, so redirect there if not there,
+* and display the search results.
+*/
+function enableSearch() {
+    const location = window.location.pathname;
+
+    const input = document.getElementById("search_bar");
+    const search_form = document.getElementById("search_form");
+    let results = [];
+
+    search_form.addEventListener('submit', (event) => {
+        event.preventDefault();
+        const search_value = input.value;
+
+        // if not on index page, go there with results
+        if (!location.endsWith("index.html")) {
+            window.location.href = "index.html";
+        }
+
+        // Remove the normal explore patterns view.
+        // only hide if it is there, e.g., search from search
+        const pattern_groups = document.getElementById("pattern_groups");
+        if (pattern_groups) {
+            pattern_groups.style.display = "none";
+        }
+
+        // Prepare for the results
+        // add a parent for search results to go into.
+        const index_main = document.getElementById("index_main");
+
+        const if_search_present = document.getElementById("search");
+        let search = null;
+        let search_results_parent = null;
+
+        // there exists a search (on that page).
+        if (if_search_present) {
+            search = if_search_present;
+            search.innerHTML = "<!-- Populated via JS -->"; // clear old search
+
+            // crate new list for searches to be attached to
+            search_results_parent = createSearchesContainer(search, index_main);
+            // index_main.appendChild(search); // in case want to add surely
+        } else {
+            search = document.createElement("div");
+            search.id = "search";
+            search_results_parent = createSearchesContainer(search, index_main);
+        }
+
+        // fetch matches to search query
+        // Also MDN is amazing, and JS to an extent, they just have a pre-append
+        // function there to use already!
+        // https://developer.mozilla.org/en-US/docs/Web/API/Element/prepend
+        results = obtainSearchResults(search_value);
+        if (results.length != 0) {
+            const results_header = document.createElement("h1");
+            results_header.textContent = `Results for "${search_value}"...`;
+            search.prepend(results_header);
+            sectionAddCards(search_results_parent, results);
+        } else {
+            const no_results_header = document.createElement("h1");
+            // if no results, allow for the page to not be tiny,
+            // space as same if there were results there.
+            const no_result_peudocontent = document.createElement("span");
+            no_result_peudocontent.classList.add("no_result_pseudocontent");
+
+            no_results_header.textContent = "No patterns found...";
+            search.prepend(no_results_header, no_result_peudocontent);
+        }
+
+    });
+
+    const createSearchesContainer = (search, index_main) => {
+        // crate new list for searches
+        const search_results_parent = document.createElement('div');
+        search_results_parent.id = "search_results";
+        search_results_parent.innerHTML = "<!-- Populated via JS -->";
+        search.appendChild(search_results_parent);
+        index_main.appendChild(search);
+        return search_results_parent;
+    }
+}
+
+/**
+* Go through the list of patterns and return a list of objects which will be
+* populated into the search results container div with sectionAddCards();
+* Query is what we are looking for in a pattern.
+@returns Array with whole pattern Objects
+*/
+function obtainSearchResults(query) {
+    let results = [];
+    query = query.toLowerCase();
+
+    const addToResutls = (entry) => {
+        if (!results.includes(entry)) {
+            results.push(entry);
+        }
+    }
+
+    Object.entries(patternDataList).forEach((returnArray) => {
+        // const key = returnArray[0];
+        const patternEntry = returnArray[1];
+
+        // cast all to lowercase for better matching
+        if (patternEntry["name"].toLowerCase().includes(query)) {
+            addToResutls(patternEntry);
+        } else if (patternEntry["overview"].includes(query)) {
+            addToResutls(patternEntry);
+        } else if (patternEntry["category"].includes(query)) {
+            addToResutls(patternEntry);
+        }
+    });
+
+    return results;
 }
 
 // ============================================================================

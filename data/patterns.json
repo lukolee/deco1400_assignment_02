@@ -2,7 +2,7 @@
     "jacaranda-bloom-coaster": {
         "name": "Jacaranda Bloom Coaster",
         "blurb": "A decorative floral coaster",
-        "overview": "A decorative floral coaster which has a cool and long description",
+        "overview": "A decorative floral coaster which has a cool and long description, bobbin",
         "category": [
             "Popular Patterns",
             "Tote Bags"
@@ -127,7 +127,7 @@
         ]
     },
     "goose-bag": {
-        "name": "Goose Bag",
+        "name": "Goose Baggey",
         "overview": "A bag with a goose",
         "category": [
             "Tote Bags",
