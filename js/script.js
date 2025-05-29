@@ -351,7 +351,7 @@ function obtainSearchResults(query) {
     let results = [];
     query = query.toLowerCase();
 
-    const addToResutls = (entry) => {
+    const addToResults = (entry) => {
         if (!results.includes(entry)) {
             results.push(entry);
         }
@@ -362,14 +362,14 @@ function obtainSearchResults(query) {
     Object.entries(patternDataList).forEach((returnArray) => {
         // const key = returnArray[0];
         const patternEntry = returnArray[1];
-
         // cast all to lowercase for better matching
         if (patternEntry["name"].toLowerCase().includes(query)) {
-            addToResutls(patternEntry);
-        } else if (patternEntry["overview"].includes(query)) {
-            addToResutls(patternEntry);
-        } else if (patternEntry["category"].includes(query)) {
-            addToResutls(patternEntry);
+            addToResults(patternEntry);
+        } else if (patternEntry["overview"].toLowerCase().includes(query)) {
+            addToResults(patternEntry);
+        } else if (patternEntry["category"][0].toLowerCase().includes(query)) {
+            // check foremost category
+            addToResults(patternEntry);
         }
     });
 
