@@ -1121,7 +1121,7 @@ button#crochet_mode_button {
         content: "";
         width: 65px;
         height: 65px;
-        background-image: url("/images/crochetcache_logogram.png");
+        background-image: url("../images/crochetcache_logogram.png");
         background-size: cover;
         background-position: center;
         visibility: visible;
