@@ -19,16 +19,19 @@ let allPatternCategories = new Map();
 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/values
 */
 async function loadPatterns() {
-    try {
-        const result = await fetch('/data/patterns.json');
-        const patternJSON = await result.json();
+    // try {
+    //     const result = await fetch('/data/patterns.json');
+    //     const patternJSON = await result.json();
 
-        patternDataList = patternJSON;
-        // pattern data is loaded, use it
-        handlePatternUsage();
-    } catch (error) {
-        console.error(error);
-    }
+    //     patternDataList = patternJSON;
+    //     // pattern data is loaded, use it
+    //     handlePatternUsage();
+    // } catch (error) {
+    //     console.error(error);
+    // }
+
+    patternDataList = JSONPatternData;
+    handlePatternUsage();
 }
 
 // Since the apttern data is loaded asynchronously, we only want to
@@ -140,8 +143,57 @@ function loadComponent(id, url) {
 // allow for laoding html snippets / images into a page and attach to
 // an element with id "navbar"
 function loadLayout() {
-    loadComponent('navbar', 'js/navbar.html');
-    loadComponent('footer', 'js/footer.html');
+    // loadComponent('navbar', 'js/navbar.html');
+    // loadComponent('footer', 'js/footer.html');
+
+    // if you have a server, uncomment above, comment out below
+    const navbar = document.getElementById('navbar');
+    const footer = document.getElementById('footer');
+
+    navbar.innerHTML = `
+        <!-- This is not a full HTML document with correct tags etc., as it is a snipped being loaded into a <nav> tag on each page. -->
+        <div class="nav_static">
+            <div id="site_nav_logo" onclick="goHome()">
+                <img src="images/crochetcache_logogram_text.png" alt="">
+            </div>
+            <form id="search_form">
+                <input
+                    id="search_bar"
+                    type="text"
+                    placeholder="Search..."
+                >
+            </form>
+        </div>
+        <ul class="horizontal_list site_control_bar">
+            <li>
+                <a href="add_pattern.html" id="add_pattern_button" class="button_look">Add Pattern</a>
+            </li>
+            <li>
+                <a href="yarn_catalogue.html" class="button_look" id="my_yarn_button">
+                    <img src="images/crochetcache_logogram.png" alt="">
+                    <span>My Yarn</span>
+                </a>
+            </li>
+        </ul>
+        <buton class="button_look hamburger" id="hamburger">
+            <i class="hamburger_patty"></i>
+            <i class="hamburger_patty"></i>
+            <i class="hamburger_patty"></i>
+        </buton>
+
+    `;
+
+    footer.innerHTML = `
+        <div class="footer_logo" onclick="goHome()">
+            <img src="./images/crochetcache_logogram_text.png" alt="">
+        </div>
+        <ul id="footer_navigation" class="horizontal_list">
+            <li><a href="contact.html">Contact</a></li>
+            <li><a href="support.html">Support</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+
+    `;
 }
 
 // Clicking the site logo in the navigation bar takes you to the home Page
@@ -859,17 +911,20 @@ let yarnData = null;
 * Store data in the yarnData array
 */
 async function loadYarn() {
-    try {
-        const result = await fetch('/data/yarn.json');
-        const yarnJSON = await result.json();
+    // try {
+    //     const result = await fetch('/data/yarn.json');
+    //     const yarnJSON = await result.json();
 
-        yarnData = yarnJSON;
+    //     yarnData = yarnJSON;
 
-        // pattern data is loaded, use it
-        handleYarnUsage();
-    } catch (error) {
-        console.error(error);
-    }
+    //     // pattern data is loaded, use it
+    //     handleYarnUsage();
+    // } catch (error) {
+    //     console.error(error);
+    // }
+
+    yarnData = JSONYarnData;
+    handleYarnUsage();
 }
 
 /**
@@ -1049,3 +1104,544 @@ function addMaterialListener() {
         materials_parent.appendChild(material_girl);
     })
 }
+
+
+// ============================================================================
+//
+// DATA
+//
+// ============================================================================
+// This has been added to avoid any permissions issues with using fetch,
+// as I dont know whether you will be using a local server to provide the projects - if you do then the fetch and json file code will work.
+// As this isn't guaranteed, the JSON data will be loaded from these two variables here.
+// if you wish to try this:
+// * patterns - then un-comment lines 22 - 32, and comment out 33-34.
+// * yarn - un-comment 865 - 875, comment out 877 -878
+// the same goes for code on lines 146-147, comment out he code below that.
+
+
+
+JSONPatternData = {
+    "cat-bag": {
+        "name": "Cat Pattern Tote Bag",
+        "blurb": "A super strong cotton tote bag with a perfect back intarsia cat graphic on the front.",
+        "overview": "A super strong cotton tote bag with a perfect back intarsia cat graphic on the front. This pattern will take a long time to complete.",
+        "category": [
+            "Popular Patterns",
+            "Tote Bag",
+            "Cat",
+            "Intarsia"
+        ],
+        "hero-image": {
+            "src": "./images/cat-bag-0.jpeg",
+            "alt": "Two people holding a red and a blue tote bag with cat patterns."
+        },
+        "images": [
+            {
+                "src": "./images/cat-bag-1.jpeg",
+                "alt": "Person holding an orange tote bag with a black cat on it."
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                "2.5 mm"
+            ],
+            "tools": [
+                "Threading needle",
+                "Scissors"
+            ],
+            "abbreviations": "US",
+            "materials": [
+                "Extra yarn"
+            ],
+            "complexity": "Difficult"
+        },
+        "yarn": [
+            {
+                "name": "Dutch Orange Mayflower Yarn",
+                "material": "Mercerised Cotton",
+                "quantity_skeins": 3
+            },
+            {
+                "name": "Natural White Mayflower Yarn",
+                "material": "Mercerised Cotton",
+                "quantity_skeins": 2
+            },
+            {
+                "name": "Black Mayflower Yarn",
+                "material": "Mercerised Cotton",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "Create the cat graphic",
+                "substeps": [
+                    {
+                        "title": "Begin the bottom row",
+                        "instructions": [
+                            "Using the white yarn",
+                            "SC 85 x 16, slst, rotate"
+                        ],
+                        "images": []
+                    },
+                    {
+                        "title": "Complete the middle",
+                        "instructions": [
+                            "Make 3 spools of white yarn, and 3 of the black",
+                            "SC till the first tail section is there, then switch to black for x stitches, then swithc the white",
+                            "Repeat for each paw"
+                        ],
+                        "images": []
+                    }
+                ]
+            },
+            {
+                "title": "Stitch together the sides",
+                "substeps": [
+                    {
+                        "title": "Stitch the sides",
+                        "instructions": [
+                            "Using the needle and extra orange yarn, stitch the two halves of the tote together"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/cat-bag-2.jpeg",
+                                "alt": "One half of an intarsia pattern of a black cat."
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "rose-bunch": {
+        "name": "Bunch of Roses",
+        "blurb": "A bouquet of red roses.",
+        "overview": "A beautiful bouquet of red roses, perfect for a meaningful valentines gift or to decorage a room / study.",
+        "category": [
+            "Popular Patterns",
+            "Flowers",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "./images/rose-bunch-0.png",
+            "alt": "Bunch of three red crochet roses held in hand."
+        },
+        "images": [
+            {
+                "src": "./images/rose-bunch-1.jpeg",
+                "alt": "single rose help in hand"
+            },
+            {
+                "src": "./images/rose-bunch-2.png",
+                "alt": "Bunch of roses held in hand"
+            },
+            {
+                "src": "./images/rose-bunch-3.png",
+                "alt": "Crochet rose next to a ruler"
+            },
+            {
+                "src": "./images/rose-bunch-4.jpeg",
+                "alt": "Crochet rose crown, unstitched"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                "2.5mm"
+            ],
+            "tools": [
+                "Threading Needle",
+                "Scissors"
+            ],
+            "abbreviations": "UK",
+            "materials": [
+                "Metal Wire",
+                "Silver Wire",
+                "Extra yarn"
+            ],
+            "complexity": "Medium-Difficult"
+        },
+        "yarn": [
+            {
+                "name": "Red Fuchsia",
+                "material": "Wool",
+                "quantity_skeins": 1
+            },
+            {
+                "name": "Garden Green",
+                "material": "Wool",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "Create the Crown",
+                "substeps": [
+                    {
+                        "title": "Crochet the Crown",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/rose-bunch-4.jpeg",
+                                "alt": "Crochet rose crown, unstitched"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "goose-bag": {
+        "name": "Goose Bag",
+        "blurb": "A goose shaped bag for the goose-pods",
+        "overview": "",
+        "category": [
+            "Popular Patterns",
+            "Tote Bag",
+            "Amigurumi"
+        ],
+        "hero-image": {
+            "src": "./images/goose-bag-0.png",
+            "alt": "placeholder"
+        },
+        "images": [
+            {
+                "src": "./images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "tulip-bunch": {
+        "name": "Bunch of Tulips",
+        "blurb": "Featuring intricate inner petals and stamens.",
+        "overview": "",
+        "category": [
+            "Flowers",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "./images/tulip-bunch-0.png",
+            "alt": "Photo of crochet tulips"
+        },
+        "images": [
+            {
+                "src": "./images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "goose-pods": {
+        "name": "GOOSEPODS",
+        "blurb": "The perfect home for your airpods",
+        "overview": "",
+        "category": [
+            "Popular Patterns",
+            "Amigurumi",
+            "Fine-crochet"
+        ],
+        "hero-image": {
+            "src": "./images/goose-pods-0.png",
+            "alt": "Photo of goose pods"
+        },
+        "images": [
+            {
+                "src": "./images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "capy-parent": {
+        "name": "Capybara Parent",
+        "blurb": "Concrete - its name",
+        "overview": "",
+        "category": [
+            "Amigurumi"
+        ],
+        "hero-image": {
+            "src": "./images/capy-parent-0.png",
+            "alt": "Photo of crochet capybara parent"
+        },
+        "images": [
+            {
+                "src": "./images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    },
+    "capy-baby": {
+        "name": "Capybara Baby",
+        "blurb": "Cement & Concrete",
+        "overview": "",
+        "category": [
+            "Amigurumi"
+        ],
+        "hero-image": {
+            "src": "./images/capy-baby-0.png",
+            "alt": "Photo of crochet capybara parent and baby"
+        },
+        "images": [
+            {
+                "src": "./images/placeholder.png",
+                "alt": "placeholder"
+            }
+        ],
+        "pattern_details": {
+            "needles": [
+                ""
+            ],
+            "tools": [
+                ""
+            ],
+            "abbreviations": "",
+            "materials": [
+                ""
+            ],
+            "complexity": ""
+        },
+        "yarn": [
+            {
+                "name": "",
+                "material": "",
+                "quantity_skeins": 1
+            }
+        ],
+        "steps": [
+            {
+                "title": "",
+                "substeps": [
+                    {
+                        "title": "",
+                        "instructions": [
+                            "mc 6",
+                            "slst",
+                            "(sc 3, inc) x 6"
+                        ],
+                        "images": [
+                            {
+                                "src": "./images/placeholder.png",
+                                "alt": "Placeholder"
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    }
+};
+
+JSONYarnData = {
+    "ninja-green": {
+        "name": "Green Ninja Cotton Yarn",
+        "preview": "./images/ninja_green.png",
+        "color": "#4c803d",
+        "colour_name": "Dark Green",
+        "weight": "4/4",
+        "material": "Cotton",
+        "quantity": 3
+    },
+    "ninja-ornge": {
+        "name": "Orange Ninja Cotton Yarn",
+        "preview": "./images/ninja_orange.png",
+        "color": "#f7902f",
+        "colour_name": "Orange",
+        "weight": "4/4",
+        "material": "Cotton",
+        "quantity": 5
+    },
+    "woolen-tundra": {
+        "name": "Tundra Softness",
+        "preview": "./images/tundra_brown.png",
+        "color": "#7a5a3c",
+        "colour_name": "Dark Brown",
+        "weight": "8/4",
+        "material": "Wool",
+        "quantity": 5
+    },
+    "finch-white": {
+        "name": "Swann White",
+        "preview": "./images/finch_white.png",
+        "color": "#f5f4ed",
+        "colour_name": "Off White",
+        "weight": "6/4",
+        "material": "Cotton",
+        "quantity": 1
+    },
+    "finch-blue": {
+        "name": "Blue Jeans",
+        "preview": "./images/finch_blue.png",
+        "color": "#508ab3",
+        "colour_name": "Jeans Blue",
+        "weight": "6/4",
+        "material": "Cotton",
+        "quantity": 1
+    }
+};
