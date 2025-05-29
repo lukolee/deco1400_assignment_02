@@ -1144,7 +1144,7 @@ button#crochet_mode_button {
 
     /* Increase the card image height to account for changed width x height */
     .pattern_card img {
-        min-height: 275px;
+        max-height: 275px;
     }
 
 
